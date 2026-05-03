@@ -10,11 +10,32 @@ set JAVA_FX_LIB=C:\javafx-sdk-25\javafx-sdk-21.0.11\lib
 set DIST_DIR=dist
 set APP_DIR=%DIST_DIR%\app
 set INSTALLER_DIR=%DIST_DIR%\installer
+set "WIX_BIN=C:\Program Files (x86)\WiX Toolset v3.14\bin"
 
 where jpackage >nul 2>nul
 if errorlevel 1 (
     echo jpackage not found. Please install JDK 17+ and ensure it is on PATH.
     exit /b 1
+)
+
+where candle >nul 2>nul
+if errorlevel 1 (
+    if exist "%WIX_BIN%\candle.exe" (
+        set "PATH=%WIX_BIN%;%PATH%"
+    ) else (
+        echo WiX not found. Ensure candle.exe and light.exe are on PATH.
+        exit /b 1
+    )
+)
+
+where light >nul 2>nul
+if errorlevel 1 (
+    if exist "%WIX_BIN%\light.exe" (
+        set "PATH=%WIX_BIN%;%PATH%"
+    ) else (
+        echo WiX not found. Ensure candle.exe and light.exe are on PATH.
+        exit /b 1
+    )
 )
 
 if not exist "%JAVA_FX_LIB%" (
@@ -27,6 +48,7 @@ if exist "%DIST_DIR%" rmdir /S /Q "%DIST_DIR%"
 if exist build\classes rmdir /S /Q build\classes
 mkdir build\classes
 mkdir "%APP_DIR%"
+mkdir "%APP_DIR%\javafx"
 mkdir "%INSTALLER_DIR%"
 
 echo Compiling sources...
@@ -59,24 +81,31 @@ if errorlevel 1 (
 echo Copying dependencies...
 xcopy /Y lib\*.jar "%APP_DIR%\" >nul
 
+echo Copying JavaFX libraries...
+xcopy /Y "%JAVA_FX_LIB%\javafx-*.jar" "%APP_DIR%\javafx\" >nul
+
 echo Building installer...
-jpackage ^
+set LOG_FILE=%DIST_DIR%\jpackage.log
+if exist "%LOG_FILE%" del /F /Q "%LOG_FILE%"
+
+jpackage --verbose ^
     --type exe ^
     --name "%APP_NAME%" ^
     --app-version "%APP_VERSION%" ^
     --input "%APP_DIR%" ^
     --main-jar booby-launcher.jar ^
     --main-class %MAIN_CLASS% ^
-    --module-path "%JAVA_FX_LIB%" ^
-    --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.web ^
+    --java-options "--module-path=$APPDIR\\javafx" ^
+    --java-options "--add-modules=javafx.controls,javafx.fxml,javafx.graphics,javafx.web" ^
     --dest "%INSTALLER_DIR%" ^
     --vendor "XriuxDev" ^
     --win-shortcut ^
     --win-menu ^
-    --win-menu-group "Booby Client"
+    --win-menu-group "Booby Client" > "%LOG_FILE%" 2>&1
 
 if errorlevel 1 (
     echo jpackage failed.
+    echo See %LOG_FILE% for details.
     exit /b 1
 )
 
