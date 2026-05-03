@@ -130,6 +130,8 @@ jpackage --verbose ^
     --vendor "XriuxDev" ^
     --win-shortcut ^
     --win-menu ^
+    --win-dir-chooser ^
+    --win-upgrade-uuid "86725340-527b-4667-a0ea-07af30e5292b" ^
     --win-menu-group "Booby Client" > "%LOG_FILE%" 2>&1
 
 if errorlevel 1 (

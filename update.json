@@ -1,6 +1,6 @@
 {
   "version": "1.0.7",
-  "installerUrl": "https://xriuxdev.github.io/BoobyClient/BoobyLauncherSetup-1.0.7.exe",
+  "installerUrl": "https://github.com/XriuxDev/BoobyClient/releases/download/release/BoobyLauncherSetup-1.0.7.exe",
   "sha256": "",
-  "notes": "Initial public release"
+  "notes": "Bug fixes, added version 1.0.7"
 }
