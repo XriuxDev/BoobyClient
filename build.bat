@@ -11,6 +11,7 @@ javac --module-path "C:\javafx-sdk-25\javafx-sdk-21.0.11\lib" ^
       src\main\java\com\boobyclient\launcher\ModernLauncherApp.java ^
       src\main\java\com\boobyclient\launcher\ModernLauncherController.java ^
       src\main\java\com\boobyclient\launcher\MinecraftAuthManager.java ^
+    src\main\java\com\boobyclient\launcher\UpdateManager.java ^
       src\main\java\com\boobyclient\launcher\OAuthManager.java ^
       src\main\java\com\boobyclient\launcher\SocketServer.java ^
       src\main\java\com\boobyclient\util\GameLauncher.java ^
