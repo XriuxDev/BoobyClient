@@ -18,7 +18,7 @@
                 
                 <HBox alignment="CENTER_LEFT" spacing="12">
                     <Label text="BOOBY CLIENT" styleClass="title-label"/>
-                    <Label text="PREMIUM" styleClass="accent-text" style="-fx-font-size: 10; -fx-background-color: rgba(99, 102, 241, 0.1); -fx-padding: 4 8; -fx-background-radius: 12;"/>
+                    <Label text="PREMIUM" styleClass="premium-badge"/>
                 </HBox>
                 
                 <Separator orientation="VERTICAL" style="-fx-padding: 0 8; -fx-min-width: 2; opacity: 0.2;"/>

@@ -1,131 +1,108 @@
-/* Booby Client - Modern Premium Stylesheet (Dark Mode) */
+/* Booby Client - Premium Ultra Edition Stylesheet */
 
 .root {
-    -fx-background-color: #18181b; /* zinc-900 */
-    -fx-text-fill: #f4f4f5; /* zinc-100 */
-    -fx-font-family: "Segoe UI", "Inter", "Ubuntu", Arial, sans-serif;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #1e1b4b 0%, #0f172a 100%);
+    -fx-text-fill: #f8fafc;
+    -fx-font-family: "Segoe UI", "Inter", "System";
 }
 
-/* Main Container */
-.border-pane {
-    -fx-background-color: #18181b;
+/* Glassmorphism Panels */
+.card {
+    -fx-background-color: rgba(30, 41, 59, 0.7);
+    -fx-background-radius: 16;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 20, 0, 0, 10);
 }
 
-/* Navigation Bar */
+/* Top Nav - Ultra Sleek */
 .top {
-    -fx-background-color: #09090b; /* zinc-950 */
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 2);
+    -fx-background-color: rgba(15, 23, 42, 0.8);
+    -fx-border-color: rgba(99, 102, 241, 0.3);
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 5;
 }
 
-/* Buttons - Navigation */
+/* Premium Buttons */
 .button {
     -fx-background-color: transparent;
-    -fx-text-fill: #a1a1aa; /* zinc-400 */
-    -fx-font-size: 13;
-    -fx-padding: 8 16;
-    -fx-cursor: hand;
+    -fx-text-fill: #94a3b8;
     -fx-font-weight: bold;
-    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
 }
 
 .button:hover {
+    -fx-text-fill: #f8fafc;
     -fx-background-color: rgba(255, 255, 255, 0.05);
-    -fx-text-fill: #f4f4f5;
 }
 
-.button:pressed {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Action Buttons (Primary) */
-.button:default, .primary-button {
-    -fx-background-color: #6366f1; /* indigo-500 */
-    -fx-text-fill: #ffffff;
-    -fx-font-weight: bold;
-    -fx-padding: 12 24;
-    -fx-font-size: 14;
-    -fx-background-radius: 8;
-    -fx-effect: dropshadow(three-pass-box, rgba(99, 102, 241, 0.3), 10, 0, 0, 4);
-}
-
-.button:default:hover, .primary-button:hover {
-    -fx-background-color: #818cf8; /* indigo-400 */
-}
-
-/* Cards/Panels */
-.card {
-    -fx-background-color: #27272a; /* zinc-800 */
+/* The "Big Launch" Button - Stunning Gradient */
+.primary-button {
+    -fx-background-color: linear-gradient(to right, #6366f1, #a855f7);
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-font-weight: 800;
     -fx-background-radius: 12;
-    -fx-padding: 24;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 15, 0, 0, 4);
-    -fx-border-color: #3f3f46; /* zinc-700 */
-    -fx-border-radius: 12;
-    -fx-border-width: 1;
+    -fx-padding: 16 32;
+    -fx-effect: dropshadow(three-pass-box, rgba(99, 102, 241, 0.4), 15, 0, 0, 0);
 }
 
-/* Inputs */
-.combo-box, .text-field {
-    -fx-background-color: #18181b;
-    -fx-text-fill: #f4f4f5;
-    -fx-padding: 10 12;
-    -fx-border-color: #3f3f46;
-    -fx-border-radius: 6;
-    -fx-background-radius: 6;
-    -fx-border-width: 1;
+.primary-button:hover {
+    -fx-background-color: linear-gradient(to right, #818cf8, #c084fc);
+    -fx-effect: dropshadow(three-pass-box, rgba(168, 85, 247, 0.6), 20, 0, 0, 0);
 }
 
-/* Labels & Text */
-.label {
-    -fx-text-fill: #f4f4f5;
-}
-
-.title-label {
-    -fx-font-size: 18;
-    -fx-font-weight: bold;
-    -fx-text-fill: #f4f4f5;
-}
-
-.subtitle-label {
-    -fx-font-size: 14;
-    -fx-font-weight: bold;
-    -fx-text-fill: #a1a1aa;
-}
-
-.muted-text {
-    -fx-text-fill: #a1a1aa;
-    -fx-font-size: 12;
-}
-
-.accent-text {
-    -fx-text-fill: #6366f1;
-    -fx-font-weight: bold;
-}
-
-/* ProgressBar */
+/* Custom Progress Bar - Glowing Neon */
 .progress-bar > .track {
-    -fx-background-color: #18181b;
+    -fx-background-color: rgba(15, 23, 42, 0.5);
+    -fx-background-radius: 10;
 }
 
 .progress-bar > .bar {
-    -fx-background-color: #6366f1;
+    -fx-background-color: linear-gradient(to right, #6366f1, #a855f7);
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, #6366f1, 10, 0, 0, 0);
 }
 
-/* ListView */
-.list-view {
-    -fx-background-color: #18181b;
-    -fx-border-color: #3f3f46;
+/* Inputs - Modern Dark */
+.combo-box, .text-field {
+    -fx-background-color: rgba(15, 23, 42, 0.6);
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
 }
 
-.list-view .list-cell {
-    -fx-text-fill: #f4f4f5;
+.combo-box:focused, .text-field:focused {
+    -fx-border-color: #6366f1;
 }
 
-.list-view .list-cell:filled:hover {
-    -fx-background-color: #27272a;
+/* Labels */
+.title-label {
+    -fx-font-size: 24;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
 }
 
-.list-view .list-cell:filled:selected {
-    -fx-background-color: rgba(99, 102, 241, 0.15);
-    -fx-text-fill: #6366f1;
+.subtitle-label {
+    -fx-text-fill: #94a3b8;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+}
+
+.accent-text {
+    -fx-text-fill: linear-gradient(to right, #6366f1, #a855f7);
+}
+
+/* Premium Badge */
+.premium-badge {
+    -fx-background-color: linear-gradient(to right, #6366f1, #a855f7);
+    -fx-text-fill: white;
+    -fx-padding: 4 12;
+    -fx-background-radius: 20;
+    -fx-font-size: 10;
     -fx-font-weight: bold;
 }
