@@ -75,7 +75,7 @@
                         <HBox spacing="32">
                             <VBox spacing="4">
                                 <Label text="Version" styleClass="muted-text"/>
-                                <Label text="1.0.0" style="-fx-font-weight: bold;"/>
+                                <Label fx:id="clientVersionLabel" text="1.0.0" style="-fx-font-weight: bold;"/>
                             </VBox>
                             <VBox spacing="4">
                                 <Label text="Target" styleClass="muted-text"/>

@@ -34,6 +34,7 @@ public class ModernLauncherController {
     @FXML private ComboBox<String> versionSelector;
     @FXML private Button launchButton;
     @FXML private Label statusLabel;
+    @FXML private Label clientVersionLabel;
     @FXML private ProgressBar launchProgress;
 
     // Settings screen controls
@@ -54,6 +55,9 @@ public class ModernLauncherController {
     @FXML
     public void initialize() {
         logger.info("Initializing modern launcher controller");
+        if (clientVersionLabel != null) {
+            clientVersionLabel.setText(ModernLauncherApp.VERSION);
+        }
 
         // Initialize managers
         minecraftAuth = new MinecraftAuthManager();

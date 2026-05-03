@@ -4,7 +4,15 @@ setlocal
 cd /d "%~dp0"
 
 set APP_NAME=Booby Client
-set APP_VERSION=1.0.0
+
+:: Extract version from ModernLauncherApp.java
+for /f "tokens=7" %%a in ('findstr /C:"public static final String VERSION =" src\main\java\com\boobyclient\launcher\ModernLauncherApp.java') do set APP_VERSION_RAW=%%a
+:: Clean up quotes and semicolon
+set APP_VERSION=%APP_VERSION_RAW:"=%
+set APP_VERSION=%APP_VERSION:;=%
+
+echo Building version: %APP_VERSION%
+
 set MAIN_CLASS=com.boobyclient.launcher.Main
 set JAVA_FX_LIB=C:\javafx-sdk-25\javafx-sdk-21.0.11\lib
 set JAVA_FX_BIN=C:\javafx-sdk-25\javafx-sdk-21.0.11\bin
@@ -12,7 +20,7 @@ set DIST_DIR=dist2
 set APP_DIR=%DIST_DIR%\app
 set INSTALLER_DIR=%DIST_DIR%\installer
 set "WIX_BIN=C:\Program Files (x86)\WiX Toolset v3.14\bin"
-set "OUTPUT_EXE=BoobyLauncherSetup-1.0.0.exe"
+set "OUTPUT_EXE=BoobyLauncherSetup-%APP_VERSION%.exe"
 
 where jpackage >nul 2>nul
 if errorlevel 1 (
