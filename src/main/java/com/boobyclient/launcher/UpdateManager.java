@@ -35,7 +35,7 @@ public class UpdateManager {
         public String errorMessage;
     }
 
-    public static UpdateResult checkForUpdates() {
+    public static UpdateResult checkForUpdates(java.util.function.Consumer<Double> progressCallback) {
         UpdateResult result = new UpdateResult();
 
         try {
@@ -61,7 +61,7 @@ public class UpdateManager {
 
             logger.info("Update available: {} -> {}", CURRENT_VERSION, latestVersion);
             LauncherLog.info("Update available: " + CURRENT_VERSION + " -> " + latestVersion);
-            Path installerPath = downloadInstaller(installerUrl);
+            Path installerPath = downloadInstaller(installerUrl, progressCallback);
             if (installerPath == null) {
                 result.updateRequiredFailed = true;
                 result.errorMessage = "Failed to download update installer";
@@ -109,7 +109,7 @@ public class UpdateManager {
         return gson.fromJson(response.body(), JsonObject.class);
     }
 
-    private static Path downloadInstaller(String url) throws Exception {
+    private static Path downloadInstaller(String url, java.util.function.Consumer<Double> progressCallback) throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(url))
             .timeout(Duration.ofSeconds(REQUEST_TIMEOUT_SECONDS))
@@ -122,9 +122,20 @@ public class UpdateManager {
             return null;
         }
 
+        long totalSize = response.headers().firstValueAsLong("Content-Length").orElse(-1L);
         Path tempFile = Files.createTempFile("boobylauncher-update-", ".exe");
-        try (InputStream input = response.body()) {
-            Files.copy(input, tempFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        
+        try (InputStream input = response.body(); java.io.OutputStream output = Files.newOutputStream(tempFile)) {
+            byte[] buffer = new byte[8192];
+            long downloaded = 0;
+            int read;
+            while ((read = input.read(buffer)) != -1) {
+                output.write(buffer, 0, read);
+                downloaded += read;
+                if (totalSize > 0) {
+                    progressCallback.accept((double) downloaded / totalSize);
+                }
+            }
         }
 
         return tempFile;

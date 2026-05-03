@@ -39,22 +39,28 @@ public class ModernLauncherApp extends Application {
 
         logger.info("Starting Booby Client Modern Launcher v{}", VERSION);
         LauncherLog.info("Launcher started v" + VERSION);
-        showUpdateStage(primaryStage);
+        
+        // Setup UI components for progress
+        Label label = new Label("Checking for updates...");
+        ProgressBar bar = new ProgressBar(ProgressBar.INDETERMINATE_PROGRESS);
+        bar.setPrefWidth(280);
+
+        showUpdateStage(primaryStage, label, bar);
 
         Thread updateThread = new Thread(() -> {
-            UpdateManager.UpdateResult result = UpdateManager.checkForUpdates();
+            UpdateManager.UpdateResult result = UpdateManager.checkForUpdates(progress -> {
+                Platform.runLater(() -> {
+                    label.setText(String.format("Downloading update... (%.0f%%)", progress * 100));
+                    bar.setProgress(progress);
+                });
+            });
             Platform.runLater(() -> handleUpdateResult(primaryStage, result));
         });
         updateThread.setDaemon(true);
         updateThread.start();
     }
 
-    private void showUpdateStage(Stage primaryStage) {
-        Label label = new Label("Checking for updates...");
-        ProgressBar bar = new ProgressBar();
-        bar.setPrefWidth(280);
-        bar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
-
+    private void showUpdateStage(Stage primaryStage, Label label, ProgressBar bar) {
         VBox content = new VBox(12, label, bar);
         content.setAlignment(Pos.CENTER);
 
