@@ -5,6 +5,12 @@
     -fx-text-fill: #ffffff;
 }
 
+.main-background {
+    -fx-background-image: url("../images/bg.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
 /* Sidebar Styling */
 .sidebar {
     -fx-background-color: rgba(15, 23, 42, 0.85);

@@ -9,12 +9,8 @@
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.boobyclient.launcher.ModernLauncherController">
 
-    <!-- Background Image -->
-    <ImageView fitWidth="900" fitHeight="600" preserveRatio="false">
-        <image>
-            <Image url="@../images/bg.png"/>
-        </image>
-    </ImageView>
+    <!-- Background Region (Full Screen) -->
+    <Region styleClass="main-background"/>
     
     <!-- Dark Overlay -->
     <Region style="-fx-background-color: rgba(0, 0, 0, 0.4);"/>
