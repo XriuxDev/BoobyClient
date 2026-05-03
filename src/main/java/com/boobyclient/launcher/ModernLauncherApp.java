@@ -26,7 +26,7 @@ import java.io.IOException;
  */
 public class ModernLauncherApp extends Application {
     private static final Logger logger = LoggerFactory.getLogger(ModernLauncherApp.class);
-    public static final String VERSION = "1.0.5"; // CHANGE THIS when you update!
+    public static final String VERSION = "1.0.6"; // CHANGE THIS when you update!
     private static java.net.ServerSocket lockSocket;
 
     @Override
@@ -73,6 +73,7 @@ public class ModernLauncherApp extends Application {
         Scene scene = new Scene(pane);
         scene.getStylesheets().add(getClass().getResource("/css/modern-style.css").toExternalForm());
         primaryStage.setTitle("Booby Client - Updating");
+        primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/images/icon.png")));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -110,11 +111,10 @@ public class ModernLauncherApp extends Application {
             Parent root = loader.load();
 
             // Create scene
-            Scene scene = new Scene(root, 1000, 600);
+            Scene scene = new Scene(root, 900, 600);
             scene.getStylesheets().add(getClass().getResource("/css/modern-style.css").toExternalForm());
-
-            // Setup stage
             primaryStage.setTitle("Booby Client - Minecraft Launcher");
+            primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/images/icon.png")));
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
 
