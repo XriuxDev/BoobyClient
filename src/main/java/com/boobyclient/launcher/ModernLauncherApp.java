@@ -8,6 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
@@ -27,6 +30,7 @@ public class ModernLauncherApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting Booby Client Modern Launcher");
+        LauncherLog.info("Launcher started");
         showUpdateStage(primaryStage);
 
         Thread updateThread = new Thread(() -> {
@@ -50,6 +54,7 @@ public class ModernLauncherApp extends Application {
         pane.setPrefSize(420, 220);
 
         Scene scene = new Scene(pane);
+        scene.getStylesheets().add(getClass().getResource("/css/modern-style.css").toExternalForm());
         primaryStage.setTitle("Booby Client - Updating");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
@@ -59,18 +64,23 @@ public class ModernLauncherApp extends Application {
     private void handleUpdateResult(Stage primaryStage, UpdateManager.UpdateResult result) {
         if (result.updateLaunched) {
             logger.info("Update started, exiting launcher");
+            LauncherLog.info("Update started, exiting launcher");
             Platform.exit();
             return;
         }
 
         if (result.updateRequiredFailed) {
             logger.error("Update required but failed: {}", result.errorMessage);
+            LauncherLog.error("Update required but failed: " + result.errorMessage, null);
+            showError("Update failed", "Update required but failed. Check launcher.log for details.");
             Platform.exit();
             return;
         }
 
         if (result.errorMessage != null) {
             logger.warn("Update check failed: {}", result.errorMessage);
+            LauncherLog.warn("Update check failed: " + result.errorMessage);
+            showError("Update check failed", "Update check failed, starting anyway.");
         }
 
         loadMainUi(primaryStage);
@@ -98,11 +108,20 @@ public class ModernLauncherApp extends Application {
 
             primaryStage.show();
             logger.info("Launcher started successfully");
+            LauncherLog.info("Launcher UI loaded");
 
         } catch (IOException e) {
             logger.error("Failed to load launcher UI", e);
+            LauncherLog.error("Failed to load launcher UI", e);
             System.exit(1);
         }
+    }
+
+    private void showError(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR, message, ButtonType.OK);
+        alert.setTitle("Booby Client");
+        alert.setHeaderText(title);
+        alert.showAndWait();
     }
 
     public static void main(String[] args) {

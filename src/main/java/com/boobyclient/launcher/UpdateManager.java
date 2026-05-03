@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
@@ -21,6 +22,7 @@ public class UpdateManager {
     private static final String CURRENT_VERSION = "1.0.0";
     private static final String UPDATE_BASE_URL = "https://xriuxdev.github.io/BoobyClient/";
     private static final String UPDATE_JSON_URL = UPDATE_BASE_URL + "update.json";
+    private static final int REQUEST_TIMEOUT_SECONDS = 5;
 
     private static final HttpClient httpClient = HttpClient.newBuilder()
         .followRedirects(HttpClient.Redirect.NORMAL)
@@ -58,6 +60,7 @@ public class UpdateManager {
             }
 
             logger.info("Update available: {} -> {}", CURRENT_VERSION, latestVersion);
+            LauncherLog.info("Update available: " + CURRENT_VERSION + " -> " + latestVersion);
             Path installerPath = downloadInstaller(installerUrl);
             if (installerPath == null) {
                 result.updateRequiredFailed = true;
@@ -85,6 +88,7 @@ public class UpdateManager {
 
         } catch (Exception e) {
             result.errorMessage = e.getMessage();
+            LauncherLog.error("Update check failed", e);
             return result;
         }
     }
@@ -92,6 +96,7 @@ public class UpdateManager {
     private static JsonObject fetchUpdateInfo() throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(UPDATE_JSON_URL))
+            .timeout(Duration.ofSeconds(REQUEST_TIMEOUT_SECONDS))
             .GET()
             .build();
 
@@ -107,6 +112,7 @@ public class UpdateManager {
     private static Path downloadInstaller(String url) throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(url))
+            .timeout(Duration.ofSeconds(REQUEST_TIMEOUT_SECONDS))
             .GET()
             .build();
 
@@ -129,6 +135,7 @@ public class UpdateManager {
             String os = System.getProperty("os.name").toLowerCase(Locale.ROOT);
             if (os.contains("win")) {
                 new ProcessBuilder("cmd", "/c", "start", "", installerPath.toString()).start();
+                LauncherLog.info("Installer launched: " + installerPath);
                 return true;
             }
 
@@ -136,6 +143,7 @@ public class UpdateManager {
             return false;
         } catch (Exception e) {
             logger.error("Failed to launch installer", e);
+            LauncherLog.error("Failed to launch installer", e);
             return false;
         }
     }

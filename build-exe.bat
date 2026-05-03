@@ -3,14 +3,16 @@ setlocal
 
 cd /d "%~dp0"
 
-set APP_NAME=BoobyLauncherSetup
+set APP_NAME=Booby Client
 set APP_VERSION=1.0.0
-set MAIN_CLASS=com.boobyclient.launcher.ModernLauncherApp
+set MAIN_CLASS=com.boobyclient.launcher.Main
 set JAVA_FX_LIB=C:\javafx-sdk-25\javafx-sdk-21.0.11\lib
-set DIST_DIR=dist
+set JAVA_FX_BIN=C:\javafx-sdk-25\javafx-sdk-21.0.11\bin
+set DIST_DIR=dist2
 set APP_DIR=%DIST_DIR%\app
 set INSTALLER_DIR=%DIST_DIR%\installer
 set "WIX_BIN=C:\Program Files (x86)\WiX Toolset v3.14\bin"
+set "OUTPUT_EXE=BoobyLauncherSetup-1.0.0.exe"
 
 where jpackage >nul 2>nul
 if errorlevel 1 (
@@ -45,7 +47,15 @@ if not exist "%JAVA_FX_LIB%" (
 )
 
 if exist "%DIST_DIR%" rmdir /S /Q "%DIST_DIR%"
+if exist "%DIST_DIR%" (
+    echo Failed to clean %DIST_DIR%. Close any Explorer window in dist and try again.
+    exit /b 1
+)
 if exist build\classes rmdir /S /Q build\classes
+if exist build\classes (
+    echo Failed to clean build\classes. Close any running build and try again.
+    exit /b 1
+)
 mkdir build\classes
 mkdir "%APP_DIR%"
 mkdir "%APP_DIR%\javafx"
@@ -82,7 +92,14 @@ echo Copying dependencies...
 xcopy /Y lib\*.jar "%APP_DIR%\" >nul
 
 echo Copying JavaFX libraries...
-xcopy /Y "%JAVA_FX_LIB%\javafx-*.jar" "%APP_DIR%\javafx\" >nul
+xcopy /Y "%JAVA_FX_LIB%\*.jar" "%APP_DIR%\javafx\" >nul
+
+echo Copying JavaFX native libraries...
+if exist "%JAVA_FX_BIN%" (
+    xcopy /Y "%JAVA_FX_BIN%\*.dll" "%APP_DIR%\" >nul
+) else (
+    echo Warning: JavaFX bin folder not found at %JAVA_FX_BIN%. Native libs might be missing.
+)
 
 echo Building installer...
 set LOG_FILE=%DIST_DIR%\jpackage.log
@@ -106,20 +123,20 @@ jpackage --verbose ^
 if errorlevel 1 (
     echo jpackage failed.
     echo See %LOG_FILE% for details.
+    if exist "%LOG_FILE%" type "%LOG_FILE%"
     exit /b 1
 )
 
 echo.
-echo Installer created:
-set "OUTPUT_EXE=%APP_NAME%-%APP_VERSION%.exe"
-for %%F in ("%INSTALLER_DIR%\%OUTPUT_EXE%") do echo %%~fF
+echo Installer created in %INSTALLER_DIR%.
+echo Moving installer to project root...
 
 if exist "%OUTPUT_EXE%" del /F /Q "%OUTPUT_EXE%"
-copy /Y "%INSTALLER_DIR%\%OUTPUT_EXE%" "%OUTPUT_EXE%" >nul
+move /Y "%INSTALLER_DIR%\%APP_NAME%-%APP_VERSION%.exe" "%OUTPUT_EXE%" >nul
 
 echo.
-echo Copied installer to repo root: %OUTPUT_EXE%
-
+echo SUCCESS: Installer is at: %~dp0%OUTPUT_EXE%
 echo.
-echo Upload the installer to GitHub Pages and update update.json if needed.
+echo Upload this file to GitHub and update update.json to enable auto-updates.
 endlocal
+
