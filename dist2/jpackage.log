@@ -1,60 +1,60 @@
-[23:50:04.645] Running candle.exe
-[23:50:04.734] Running light.exe
-[23:50:04.864] Detected [light.exe] version [3.14.1.8722].
-[23:50:04.864] Detected [candle.exe] version [3.14.1.8722].
-[23:50:04.865] WiX 3.14.1.8722 detected. Enabling advanced cleanup action.
-[23:50:11.959] Command [PID: -1]:
-    jlink --output C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\images\win-msi.image\Booby Client\runtime --module-path C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.10.7-hotspot\\jmods --add-modules java.rmi,jdk.management.jfr,jdk.jdi,jdk.charsets,jdk.xml.dom,java.xml,java.datatransfer,jdk.jstatd,jdk.httpserver,java.desktop,java.security.sasl,jdk.zipfs,java.base,jdk.crypto.ec,jdk.javadoc,jdk.management.agent,jdk.jshell,jdk.editpad,jdk.sctp,java.sql.rowset,jdk.jsobject,jdk.unsupported,java.smartcardio,jdk.jlink,java.security.jgss,java.compiler,jdk.nio.mapmode,jdk.dynalink,jdk.unsupported.desktop,jdk.accessibility,jdk.security.jgss,jdk.incubator.vector,java.sql,java.xml.crypto,java.logging,java.transaction.xa,jdk.jfr,jdk.crypto.cryptoki,jdk.net,jdk.random,java.naming,jdk.internal.ed,java.prefs,java.net.http,jdk.compiler,jdk.naming.rmi,jdk.internal.opt,jdk.jconsole,jdk.attach,jdk.crypto.mscapi,jdk.internal.le,java.management,jdk.jdwp.agent,jdk.internal.jvmstat,java.instrument,jdk.management,jdk.security.auth,java.scripting,jdk.jdeps,jdk.jartool,jdk.jpackage,java.management.rmi,jdk.naming.dns,jdk.localedata --strip-native-commands --strip-debug --no-man-pages --no-header-files
-[23:50:11.959] Output:
+[23:58:32.431] Running candle.exe
+[23:58:32.555] Running light.exe
+[23:58:32.702] Detected [light.exe] version [3.14.1.8722].
+[23:58:32.702] Detected [candle.exe] version [3.14.1.8722].
+[23:58:32.703] WiX 3.14.1.8722 detected. Enabling advanced cleanup action.
+[23:58:39.584] Command [PID: -1]:
+    jlink --output C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\images\win-msi.image\Booby Client\runtime --module-path C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.10.7-hotspot\\jmods --add-modules jdk.management.jfr,java.rmi,jdk.jdi,jdk.charsets,java.xml,jdk.xml.dom,java.datatransfer,jdk.jstatd,jdk.httpserver,java.desktop,java.security.sasl,jdk.zipfs,java.base,jdk.crypto.ec,jdk.javadoc,jdk.management.agent,jdk.jshell,jdk.editpad,jdk.jsobject,java.sql.rowset,jdk.sctp,jdk.jlink,java.smartcardio,jdk.unsupported,java.security.jgss,jdk.nio.mapmode,java.compiler,jdk.dynalink,jdk.unsupported.desktop,jdk.accessibility,jdk.security.jgss,java.sql,jdk.incubator.vector,java.transaction.xa,java.logging,java.xml.crypto,jdk.jfr,jdk.crypto.cryptoki,jdk.random,jdk.net,java.naming,jdk.internal.ed,java.prefs,java.net.http,jdk.compiler,jdk.naming.rmi,jdk.internal.opt,jdk.jconsole,jdk.attach,jdk.crypto.mscapi,jdk.internal.le,java.management,jdk.jdwp.agent,jdk.internal.jvmstat,java.instrument,jdk.management,jdk.security.auth,java.scripting,jdk.jdeps,jdk.jartool,java.management.rmi,jdk.jpackage,jdk.naming.dns,jdk.localedata --strip-native-commands --strip-debug --no-man-pages --no-header-files
+[23:58:39.584] Output:
     WARNING: Using incubator modules: jdk.incubator.vector
 
-[23:50:11.959] Returned: 0
+[23:58:39.585] Returned: 0
 
-[23:50:11.962] Using default package resource JavaApp.ico [icon] (add Booby Client.ico to the resource-dir to customize).
-[23:50:11.988] Warning: Windows Defender may prevent jpackage from functioning. If there is an issue, it can be addressed by either disabling realtime monitoring, or adding an exclusion for the directory "C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207".
-[23:50:12.030] Using default package resource WinLauncher.template [Template for creating executable properties file] (add Booby Client.properties to the resource-dir to customize).
-[23:50:13.650] MSI ProductCode: 75cd79e3-3522-350b-9e63-d48abbd8e2cd.
-[23:50:13.650] MSI UpgradeCode: 52adf078-1946-34f4-8d5c-6eaffa80e30f.
-[23:50:13.954] Using default package resource MsiInstallerStrings_de.wxl [WiX localization file] (add MsiInstallerStrings_de.wxl to the resource-dir to customize).
-[23:50:13.955] Using default package resource MsiInstallerStrings_en.wxl [WiX localization file] (add MsiInstallerStrings_en.wxl to the resource-dir to customize).
-[23:50:13.985] Using default package resource MsiInstallerStrings_ja.wxl [WiX localization file] (add MsiInstallerStrings_ja.wxl to the resource-dir to customize).
-[23:50:13.987] Using default package resource MsiInstallerStrings_zh_CN.wxl [WiX localization file] (add MsiInstallerStrings_zh_CN.wxl to the resource-dir to customize).
-[23:50:13.988] Using default package resource main.wxs [Main WiX project file] (add main.wxs to the resource-dir to customize).
-[23:50:13.989] Using default package resource overrides.wxi [Overrides WiX project file] (add overrides.wxi to the resource-dir to customize).
-[23:50:13.990] Preparing MSI config: C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\images\win-exe.image\Booby Client-1.0.3.msi.
-[23:50:13.991] Generating MSI: C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\images\win-exe.image\Booby Client-1.0.3.msi.
-[23:50:14.000] Running candle.exe in C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\images\win-msi.image\Booby Client
-[23:50:14.221] Command [PID: 15728]:
-    candle.exe -nologo C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config\main.wxs -ext WixUtilExtension -arch x64 -out C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\wixobj\main.wixobj -dJpAppDescription=Booby Client -dJpAppVersion=1.0.3 -dJpProductCode=75cd79e3-3522-350b-9e63-d48abbd8e2cd -dJpAppName=Booby Client -dJpAllowUpgrades=yes -dJpProductUpgradeCode=52adf078-1946-34f4-8d5c-6eaffa80e30f -dJpIsSystemWide=yes -dJpAllowDowngrades=yes -dJpIcon=C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\images\win-msi.image\Booby Client\Booby Client.exe -dJpAppVendor=XriuxDev -dJpAppSizeKb=263988 -dJpConfigDir=C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config
-[23:50:14.222] Output:
+[23:58:39.589] Using default package resource JavaApp.ico [icon] (add Booby Client.ico to the resource-dir to customize).
+[23:58:39.600] Warning: Windows Defender may prevent jpackage from functioning. If there is an issue, it can be addressed by either disabling realtime monitoring, or adding an exclusion for the directory "C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780".
+[23:58:39.660] Using default package resource WinLauncher.template [Template for creating executable properties file] (add Booby Client.properties to the resource-dir to customize).
+[23:58:40.448] MSI ProductCode: 06b3da05-a388-38d3-be9f-5767b796e7c0.
+[23:58:40.449] MSI UpgradeCode: 52adf078-1946-34f4-8d5c-6eaffa80e30f.
+[23:58:40.508] Using default package resource MsiInstallerStrings_de.wxl [WiX localization file] (add MsiInstallerStrings_de.wxl to the resource-dir to customize).
+[23:58:40.509] Using default package resource MsiInstallerStrings_en.wxl [WiX localization file] (add MsiInstallerStrings_en.wxl to the resource-dir to customize).
+[23:58:40.511] Using default package resource MsiInstallerStrings_ja.wxl [WiX localization file] (add MsiInstallerStrings_ja.wxl to the resource-dir to customize).
+[23:58:40.511] Using default package resource MsiInstallerStrings_zh_CN.wxl [WiX localization file] (add MsiInstallerStrings_zh_CN.wxl to the resource-dir to customize).
+[23:58:40.512] Using default package resource main.wxs [Main WiX project file] (add main.wxs to the resource-dir to customize).
+[23:58:40.513] Using default package resource overrides.wxi [Overrides WiX project file] (add overrides.wxi to the resource-dir to customize).
+[23:58:40.515] Preparing MSI config: C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\images\win-exe.image\Booby Client-1.0.4.msi.
+[23:58:40.516] Generating MSI: C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\images\win-exe.image\Booby Client-1.0.4.msi.
+[23:58:40.525] Running candle.exe in C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\images\win-msi.image\Booby Client
+[23:58:40.722] Command [PID: 16036]:
+    candle.exe -nologo C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config\main.wxs -ext WixUtilExtension -arch x64 -out C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\wixobj\main.wixobj -dJpAppDescription=Booby Client -dJpAppVersion=1.0.4 -dJpProductCode=06b3da05-a388-38d3-be9f-5767b796e7c0 -dJpAppName=Booby Client -dJpAllowUpgrades=yes -dJpProductUpgradeCode=52adf078-1946-34f4-8d5c-6eaffa80e30f -dJpIsSystemWide=yes -dJpAllowDowngrades=yes -dJpIcon=C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\images\win-msi.image\Booby Client\Booby Client.exe -dJpAppVendor=XriuxDev -dJpAppSizeKb=264233 -dJpConfigDir=C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config
+[23:58:40.722] Output:
     main.wxs
-[23:50:14.222] Returned: 0
+[23:58:40.722] Returned: 0
 
-[23:50:14.222] Running candle.exe in C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\images\win-msi.image\Booby Client
-[23:50:14.465] Command [PID: 4928]:
-    candle.exe -nologo C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config\bundle.wxf -ext WixUtilExtension -arch x64 -out C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\wixobj\bundle.wixobj
-[23:50:14.466] Output:
+[23:58:40.722] Running candle.exe in C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\images\win-msi.image\Booby Client
+[23:58:40.972] Command [PID: 9240]:
+    candle.exe -nologo C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config\bundle.wxf -ext WixUtilExtension -arch x64 -out C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\wixobj\bundle.wixobj
+[23:58:40.972] Output:
     bundle.wxf
-[23:50:14.466] Returned: 0
+[23:58:40.972] Returned: 0
 
-[23:50:14.466] Running candle.exe in C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\images\win-msi.image\Booby Client
-[23:50:14.607] Command [PID: 4988]:
-    candle.exe -nologo C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config\ui.wxf -ext WixUtilExtension -arch x64 -out C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\wixobj\ui.wixobj
-[23:50:14.607] Output:
+[23:58:40.973] Running candle.exe in C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\images\win-msi.image\Booby Client
+[23:58:41.118] Command [PID: 4216]:
+    candle.exe -nologo C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config\ui.wxf -ext WixUtilExtension -arch x64 -out C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\wixobj\ui.wixobj
+[23:58:41.119] Output:
     ui.wxf
-[23:50:14.608] Returned: 0
+[23:58:41.119] Returned: 0
 
-[23:50:14.608] Running light.exe in C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\images\win-msi.image\Booby Client
-[23:50:58.506] Command [PID: 8160]:
-    light.exe -nologo -spdb -ext WixUtilExtension -out C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\images\win-exe.image\Booby Client-1.0.3.msi -b C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config -sice:ICE27 -loc C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config\MsiInstallerStrings_de.wxl -loc C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config\MsiInstallerStrings_en.wxl -loc C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config\MsiInstallerStrings_ja.wxl -loc C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config\MsiInstallerStrings_zh_CN.wxl -cultures:en-us C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\wixobj\main.wixobj C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\wixobj\bundle.wixobj C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\wixobj\ui.wixobj
-[23:50:58.506] Output:
-    C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config\main.wxs(53) : warning LGHT1076 : ICE61: This product should remove only older versions of itself. No Maximum version was detected for the current product. (JP_DOWNGRADABLE_FOUND)
-    C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config\bundle.wxf(12) : warning LGHT1076 : ICE69: Mismatched component reference. Entry 'shortcut0b65afb4a270340fa00fa92dd4509baf' of the Shortcut table belongs to component 'cshortcut0b65afb4a270340fa00fa92dd4509baf'. However, the formatted string in column 'Target' references file 'fileb806fd7128c836468c7a6b85d67f4d0b' which belongs to component 'cfileb806fd7128c836468c7a6b85d67f4d0b'. Components are in the same feature.
-    C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207\config\bundle.wxf(21) : warning LGHT1076 : ICE69: Mismatched component reference. Entry 'shortcutd69b8c19301030b0890e5c5af344b95a' of the Shortcut table belongs to component 'cshortcutd69b8c19301030b0890e5c5af344b95a'. However, the formatted string in column 'Target' references file 'fileb806fd7128c836468c7a6b85d67f4d0b' which belongs to component 'cfileb806fd7128c836468c7a6b85d67f4d0b'. Components are in the same feature.
-[23:50:58.506] Returned: 0
+[23:58:41.119] Running light.exe in C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\images\win-msi.image\Booby Client
+[23:59:26.642] Command [PID: 2244]:
+    light.exe -nologo -spdb -ext WixUtilExtension -out C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\images\win-exe.image\Booby Client-1.0.4.msi -b C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config -sice:ICE27 -loc C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config\MsiInstallerStrings_de.wxl -loc C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config\MsiInstallerStrings_en.wxl -loc C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config\MsiInstallerStrings_ja.wxl -loc C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config\MsiInstallerStrings_zh_CN.wxl -cultures:en-us C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\wixobj\main.wixobj C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\wixobj\bundle.wixobj C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\wixobj\ui.wixobj
+[23:59:26.642] Output:
+    C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config\main.wxs(53) : warning LGHT1076 : ICE61: This product should remove only older versions of itself. No Maximum version was detected for the current product. (JP_DOWNGRADABLE_FOUND)
+    C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config\bundle.wxf(12) : warning LGHT1076 : ICE69: Mismatched component reference. Entry 'shortcut0b65afb4a270340fa00fa92dd4509baf' of the Shortcut table belongs to component 'cshortcut0b65afb4a270340fa00fa92dd4509baf'. However, the formatted string in column 'Target' references file 'fileb806fd7128c836468c7a6b85d67f4d0b' which belongs to component 'cfileb806fd7128c836468c7a6b85d67f4d0b'. Components are in the same feature.
+    C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780\config\bundle.wxf(21) : warning LGHT1076 : ICE69: Mismatched component reference. Entry 'shortcutd69b8c19301030b0890e5c5af344b95a' of the Shortcut table belongs to component 'cshortcutd69b8c19301030b0890e5c5af344b95a'. However, the formatted string in column 'Target' references file 'fileb806fd7128c836468c7a6b85d67f4d0b' which belongs to component 'cfileb806fd7128c836468c7a6b85d67f4d0b'. Components are in the same feature.
+[23:59:26.642] Returned: 0
 
-[23:50:58.507] Generating EXE for installer to: C:\Users\dylan\OneDrive\Documenten\robloxgames\Minecraft\BoobyClient\dist2\installer.
-[23:50:58.509] Warning: Windows Defender may prevent jpackage from functioning. If there is an issue, it can be addressed by either disabling realtime monitoring, or adding an exclusion for the directory "C:\Users\dylan\AppData\Local\Temp\jdk.jpackage17519374595575891207".
-[23:50:58.590] Using default package resource WinInstaller.template [Template for creating executable properties file] (add WinInstaller.properties to the resource-dir to customize).
-[23:51:01.160] Installer (.exe) saved to: C:\Users\dylan\OneDrive\Documenten\robloxgames\Minecraft\BoobyClient\dist2\installer
-[23:51:01.161] Succeeded in building EXE Installer Package package
+[23:59:26.643] Generating EXE for installer to: C:\Users\dylan\OneDrive\Documenten\robloxgames\Minecraft\BoobyClient\dist2\installer.
+[23:59:26.647] Warning: Windows Defender may prevent jpackage from functioning. If there is an issue, it can be addressed by either disabling realtime monitoring, or adding an exclusion for the directory "C:\Users\dylan\AppData\Local\Temp\jdk.jpackage15517538161951443780".
+[23:59:26.742] Using default package resource WinInstaller.template [Template for creating executable properties file] (add WinInstaller.properties to the resource-dir to customize).
+[23:59:28.664] Installer (.exe) saved to: C:\Users\dylan\OneDrive\Documenten\robloxgames\Minecraft\BoobyClient\dist2\installer
+[23:59:28.664] Succeeded in building EXE Installer Package package

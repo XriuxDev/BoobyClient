@@ -26,7 +26,7 @@ import java.io.IOException;
  */
 public class ModernLauncherApp extends Application {
     private static final Logger logger = LoggerFactory.getLogger(ModernLauncherApp.class);
-    public static final String VERSION = "1.0.3"; // CHANGE THIS when you update!
+    public static final String VERSION = "1.0.4"; // CHANGE THIS when you update!
     private static java.net.ServerSocket lockSocket;
 
     @Override
@@ -150,6 +150,13 @@ public class ModernLauncherApp extends Application {
             logger.warn("Another instance is already running.");
             return false;
         }
+    }
+
+    @Override
+    public void stop() {
+        logger.info("Launcher stopping...");
+        Platform.exit();
+        System.exit(0);
     }
 
     public static void main(String[] args) {
