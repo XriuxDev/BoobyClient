@@ -114,7 +114,7 @@ set LOG_FILE=%DIST_DIR%\jpackage.log
 if exist "%LOG_FILE%" del /F /Q "%LOG_FILE%"
 
 set "ICON_FLAG="
-if exist "icon.ico" set ICON_FLAG=--icon "icon.ico"
+if exist "src\main\resources\images\icon.ico" set ICON_FLAG=--icon "src\main\resources\images\icon.ico"
 
 jpackage --verbose ^
     --type exe ^
