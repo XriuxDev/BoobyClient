@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -143,12 +144,21 @@ public class UpdateManager {
 
     private static boolean launchInstaller(Path installerPath) {
         try {
+            File installerFile = installerPath.toFile();
+            if (!installerFile.exists()) {
+                logger.error("Installer file not found: {}", installerPath);
+                return false;
+            }
+
             String os = System.getProperty("os.name").toLowerCase(Locale.ROOT);
             if (os.contains("win")) {
-                new ProcessBuilder("cmd", "/c", "start", "", installerPath.toString()).start();
-                LauncherLog.info("Installer launched: " + installerPath);
+                // Use absolute path and wrap in quotes for safety
+                String cmd = "\"" + installerFile.getAbsolutePath() + "\"";
+                new ProcessBuilder("cmd", "/c", "start", "", cmd).start();
+                LauncherLog.info("Installer launched: " + installerFile.getAbsolutePath());
                 return true;
             }
+
 
             logger.error("Unsupported OS for installer: {}", os);
             return false;
