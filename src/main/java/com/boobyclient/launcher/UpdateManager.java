@@ -19,7 +19,7 @@ import java.util.Locale;
 public class UpdateManager {
     private static final Logger logger = LoggerFactory.getLogger(UpdateManager.class);
 
-    private static final String CURRENT_VERSION = "1.0.0";
+    private static final String CURRENT_VERSION = ModernLauncherApp.VERSION;
     private static final String UPDATE_BASE_URL = "https://xriuxdev.github.io/BoobyClient/";
     private static final String UPDATE_JSON_URL = UPDATE_BASE_URL + "update.json";
     private static final int REQUEST_TIMEOUT_SECONDS = 5;

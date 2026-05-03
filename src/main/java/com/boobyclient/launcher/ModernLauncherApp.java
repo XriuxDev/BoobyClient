@@ -26,11 +26,19 @@ import java.io.IOException;
  */
 public class ModernLauncherApp extends Application {
     private static final Logger logger = LoggerFactory.getLogger(ModernLauncherApp.class);
+    public static final String VERSION = "1.0.0"; // CHANGE THIS when you update!
+    private static java.net.ServerSocket lockSocket;
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting Booby Client Modern Launcher");
-        LauncherLog.info("Launcher started");
+        if (!checkSingleInstance()) {
+            Platform.exit();
+            System.exit(0);
+            return;
+        }
+
+        logger.info("Starting Booby Client Modern Launcher v{}", VERSION);
+        LauncherLog.info("Launcher started v" + VERSION);
         showUpdateStage(primaryStage);
 
         Thread updateThread = new Thread(() -> {
@@ -124,7 +132,19 @@ public class ModernLauncherApp extends Application {
         alert.showAndWait();
     }
 
+    private boolean checkSingleInstance() {
+        try {
+            // We use 25556 for the lock (25555 is used by the game socket server)
+            lockSocket = new java.net.ServerSocket(25556);
+            return true;
+        } catch (Exception e) {
+            logger.warn("Another instance is already running.");
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
 }
+
