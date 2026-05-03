@@ -5,157 +5,110 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.boobyclient.launcher.ModernLauncherController"
-            styleClass="border-pane">
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.boobyclient.launcher.ModernLauncherController">
 
-    <!-- Top Navigation Bar -->
-    <top>
-        <VBox styleClass="top">
-            <HBox alignment="CENTER_LEFT" spacing="24">
-                <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
-                
-                <HBox alignment="CENTER_LEFT" spacing="12">
-                    <Label text="BOOBY CLIENT" styleClass="title-label"/>
-                    <Label text="PREMIUM" styleClass="premium-badge"/>
-                </HBox>
-                
-                <Separator orientation="VERTICAL" style="-fx-padding: 0 8; -fx-min-width: 2; opacity: 0.2;"/>
+    <!-- Background Image -->
+    <ImageView fitWidth="900" fitHeight="600" preserveRatio="false">
+        <image>
+            <Image url="@../images/bg.png"/>
+        </image>
+    </ImageView>
+    
+    <!-- Dark Overlay -->
+    <Region style="-fx-background-color: rgba(0, 0, 0, 0.4);"/>
 
-                <HBox spacing="8" HBox.hgrow="ALWAYS">
-                    <Button text="Home" styleClass="button" onAction="#showHome"/>
-                    <Button text="Settings" styleClass="button" onAction="#showSettings"/>
-                    <Button text="Profiles" styleClass="button" onAction="#showProfiles"/>
-                </HBox>
-            </HBox>
+    <HBox spacing="0">
+        <!-- Sidebar Navigation -->
+        <VBox prefWidth="240" spacing="32" styleClass="sidebar">
+            <padding><Insets top="48" right="24" bottom="48" left="24"/></padding>
+            
+            <VBox spacing="8" alignment="CENTER">
+                <Label text="BOOBY" styleClass="logo-text"/>
+                <Label text="PREMIUM" styleClass="premium-badge"/>
+            </VBox>
+
+            <VBox spacing="12" VBox.vgrow="ALWAYS">
+                <Button text="HOME" styleClass="nav-button" onAction="#showHome" maxWidth="Infinity"/>
+                <Button text="SETTINGS" styleClass="nav-button" onAction="#showSettings" maxWidth="Infinity"/>
+                <Button text="PROFILES" styleClass="nav-button" onAction="#showProfiles" maxWidth="Infinity"/>
+            </VBox>
+            
+            <VBox spacing="12" alignment="BOTTOM_CENTER">
+                <Label fx:id="clientVersionLabel" text="1.0.2" styleClass="version-text"/>
+            </VBox>
         </VBox>
-    </top>
 
-    <!-- Main Content Area -->
-    <center>
-        <StackPane fx:id="contentPane">
+        <!-- Main Content Area -->
+        <StackPane fx:id="contentPane" HBox.hgrow="ALWAYS">
             <!-- Home Screen -->
-            <VBox fx:id="homeScreen" spacing="24" styleClass="border-pane">
-                <padding><Insets top="32" right="40" bottom="32" left="40"/></padding>
-                <HBox spacing="32" VBox.vgrow="ALWAYS">
-                    <!-- Left Side - Launch Section -->
-                    <VBox fx:id="loginSection" spacing="24" styleClass="card" HBox.hgrow="ALWAYS" maxWidth="450">
+            <VBox fx:id="homeScreen" spacing="32" alignment="CENTER">
+                <padding><Insets top="40" right="60" bottom="40" left="60"/></padding>
+                
+                <VBox spacing="24" styleClass="glass-card" maxWidth="500">
+                    <VBox spacing="8" alignment="CENTER">
+                        <Label fx:id="usernameLabel" text="NOT LOGGED IN" styleClass="subtitle-label"/>
+                        <Separator maxWidth="100" style="-fx-opacity: 0.3;"/>
+                    </VBox>
+
+                    <StackPane>
+                        <Button fx:id="loginButton" text="LOGIN WITH MICROSOFT" styleClass="primary-button" onAction="#handleLogin" maxWidth="Infinity"/>
+                        <Button fx:id="logoutButton" text="LOGOUT" styleClass="danger-button" visible="false" managed="false" onAction="#handleLogout" maxWidth="Infinity"/>
+                    </StackPane>
+
+                    <VBox spacing="16">
                         <VBox spacing="8">
-                            <Label text="Authentication" styleClass="subtitle-label"/>
-                            <Label fx:id="usernameLabel" text="Not logged in" styleClass="muted-text"/>
+                            <Label text="MINECRAFT VERSION" styleClass="tiny-label"/>
+                            <ComboBox fx:id="versionSelector" disable="true" maxWidth="Infinity"/>
                         </VBox>
-
-                        <HBox spacing="12">
-                            <Button fx:id="loginButton" text="Login with Microsoft" styleClass="primary-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                            <Button fx:id="logoutButton" text="Logout" styleClass="danger-button" visible="false" managed="false"/>
-                        </HBox>
-
-                        <Separator style="-fx-opacity: 0.5;"/>
-
-                        <VBox spacing="16" VBox.vgrow="ALWAYS">
-                            <Label text="Quick Launch" styleClass="subtitle-label"/>
-                            <VBox spacing="8">
-                                <Label text="Version" styleClass="muted-text"/>
-                                <ComboBox fx:id="versionSelector" disable="true" maxWidth="Infinity"/>
-                            </VBox>
-                        </VBox>
-
-                        <VBox spacing="12">
-                            <Button fx:id="launchButton" text="Launch Game" styleClass="primary-button" style="-fx-font-size: 16; -fx-padding: 16;" onAction="#launchGame" disable="true" maxWidth="Infinity"/>
-                            <Label fx:id="statusLabel" text="Please login first" styleClass="muted-text" alignment="CENTER" maxWidth="Infinity"/>
-                            <ProgressBar fx:id="launchProgress" visible="false" managed="false" maxWidth="Infinity" prefHeight="4"/>
-                        </VBox>
+                        
+                        <Button fx:id="launchButton" text="PLAY" styleClass="play-button" onAction="#launchGame" disable="true" maxWidth="Infinity"/>
                     </VBox>
 
-                    <!-- Right Side - News/Info -->
-                    <VBox spacing="24" styleClass="card" HBox.hgrow="ALWAYS">
-                        <Label text="Client Information" styleClass="subtitle-label"/>
-
-                        <HBox spacing="32">
-                            <VBox spacing="4">
-                                <Label text="Version" styleClass="muted-text"/>
-                                <Label fx:id="clientVersionLabel" text="1.0.0" style="-fx-font-weight: bold;"/>
-                            </VBox>
-                            <VBox spacing="4">
-                                <Label text="Target" styleClass="muted-text"/>
-                                <Label text="Minecraft 1.21+" style="-fx-font-weight: bold;"/>
-                            </VBox>
-                        </HBox>
-
-                        <Separator style="-fx-opacity: 0.5;"/>
-
-                        <VBox spacing="12">
-                            <Label text="Features" styleClass="subtitle-label"/>
-                            <Label text="✓ Microsoft OAuth Login" styleClass="muted-text"/>
-                            <Label text="✓ In-Game HUD Menu (Right-Shift)" styleClass="muted-text"/>
-                            <Label text="✓ Toggle Sprint Fix" styleClass="muted-text"/>
-                            <Label text="✓ FPS &amp; Ping Counters" styleClass="muted-text"/>
-                            <Label text="✓ Profile Manager" styleClass="muted-text"/>
-                        </VBox>
-
-                        <Region VBox.vgrow="ALWAYS"/>
-
-                        <VBox spacing="8" style="-fx-background-color: rgba(16, 185, 129, 0.1); -fx-padding: 16; -fx-background-radius: 8;">
-                            <Label text="Vanilla Compliant" styleClass="success-text" style="-fx-font-weight: bold;"/>
-                            <Label text="This client provides no unfair advantages and is safe for competitive multiplayer." styleClass="muted-text" wrapText="true"/>
-                        </VBox>
+                    <VBox spacing="8" alignment="CENTER">
+                        <Label fx:id="statusLabel" text="AUTHENTICATION REQUIRED" styleClass="status-text"/>
+                        <ProgressBar fx:id="launchProgress" visible="false" managed="false" maxWidth="Infinity" prefHeight="6"/>
                     </VBox>
-                </HBox>
+                </VBox>
             </VBox>
 
             <!-- Settings Screen -->
-            <VBox fx:id="settingsScreen" spacing="24" styleClass="border-pane">
-                <padding><Insets top="32" right="40" bottom="32" left="40"/></padding>
+            <VBox fx:id="settingsScreen" spacing="24" visible="false">
+                <padding><Insets top="64" right="64" bottom="64" left="64"/></padding>
+                <Label text="SETTINGS" styleClass="title-label"/>
                 
-                <Label text="Settings" styleClass="title-label"/>
-
-                <VBox spacing="20" styleClass="card" maxWidth="600">
-                    <HBox alignment="CENTER_LEFT" spacing="24">
-                        <Label text="Allocated Memory:" prefWidth="150"/>
-                        <ComboBox fx:id="memorySelector" prefWidth="200"/>
+                <VBox spacing="24" styleClass="glass-card" maxWidth="600">
+                    <HBox alignment="CENTER_LEFT" spacing="32">
+                        <Label text="MEMORY" styleClass="tiny-label" prefWidth="120"/>
+                        <ComboBox fx:id="memorySelector" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
                     </HBox>
-
-                    <HBox alignment="CENTER_LEFT" spacing="24">
-                        <Label text="Theme:" prefWidth="150"/>
-                        <ComboBox fx:id="themeSelector" prefWidth="200"/>
+                    <HBox alignment="CENTER_LEFT" spacing="32">
+                        <Label text="THEME" styleClass="tiny-label" prefWidth="120"/>
+                        <ComboBox fx:id="themeSelector" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
                     </HBox>
-                    
-                    <Separator style="-fx-opacity: 0.2; -fx-padding: 8 0;"/>
-
-                    <CheckBox text="Auto-launch on startup" styleClass="check-box"/>
-                    <CheckBox text="Keep launcher open after game starts" styleClass="check-box"/>
+                    <Separator style="-fx-opacity: 0.1;"/>
+                    <Button fx:id="saveSettingsButton" text="SAVE CHANGES" styleClass="primary-button" onAction="#saveSettings" maxWidth="Infinity"/>
                 </VBox>
-
-                <Region VBox.vgrow="ALWAYS"/>
-                
-                <HBox>
-                    <Button fx:id="saveSettingsButton" text="Save Settings" styleClass="primary-button" onAction="#saveSettings"/>
-                </HBox>
             </VBox>
 
             <!-- Profiles Screen -->
-            <VBox fx:id="profilesScreen" spacing="24" styleClass="border-pane">
-                <padding><Insets top="32" right="40" bottom="32" left="40"/></padding>
+            <VBox fx:id="profilesScreen" spacing="24" visible="false">
+                <padding><Insets top="64" right="64" bottom="64" left="64"/></padding>
+                <Label text="PROFILES" styleClass="title-label"/>
                 
-                <Label text="Profile Manager" styleClass="title-label"/>
-
-                <HBox spacing="16" alignment="CENTER_LEFT">
-                    <TextField fx:id="profileNameField" promptText="Enter new profile name..." prefWidth="300" style="-fx-padding: 12 16;"/>
-                    <Button text="Create Profile" styleClass="primary-button" onAction="#createProfile"/>
-                </HBox>
-
-                <VBox spacing="16" styleClass="card" VBox.vgrow="ALWAYS">
-                    <Label text="Saved Profiles" styleClass="subtitle-label"/>
+                <VBox spacing="24" styleClass="glass-card" VBox.vgrow="ALWAYS">
+                    <HBox spacing="16">
+                        <TextField fx:id="profileNameField" promptText="NEW PROFILE NAME..." HBox.hgrow="ALWAYS"/>
+                        <Button text="ADD" styleClass="primary-button" onAction="#createProfile" prefWidth="100"/>
+                    </HBox>
                     <ListView fx:id="profilesList" VBox.vgrow="ALWAYS"/>
-                    
-                    <HBox spacing="12" alignment="CENTER_RIGHT">
-                        <Button text="Delete" styleClass="danger-button" style="-fx-padding: 10 20;" onAction="#deleteProfile"/>
-                        <Button text="Load Profile" styleClass="primary-button" onAction="#loadProfile"/>
+                    <HBox spacing="16" alignment="CENTER_RIGHT">
+                        <Button text="DELETE" styleClass="danger-button" onAction="#deleteProfile"/>
+                        <Button text="SELECT" styleClass="primary-button" onAction="#loadProfile" prefWidth="120"/>
                     </HBox>
                 </VBox>
             </VBox>
         </StackPane>
-    </center>
-
-</BorderPane>
+    </HBox>
+</StackPane>
