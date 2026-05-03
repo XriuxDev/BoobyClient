@@ -1,0 +1,104 @@
+/* Booby Client Launcher Stylesheet */
+
+.root {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #00aa00;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+    -fx-padding: 8 20 8 20;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.button:hover {
+    -fx-background-color: #00dd00;
+}
+
+.button:pressed {
+    -fx-background-color: #009900;
+}
+
+.button:disabled {
+    -fx-background-color: #444444;
+    -fx-opacity: 0.6;
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-background-color: #2e2e2e;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 8;
+    -fx-border-color: #00aa00;
+    -fx-border-radius: 3;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #2e2e2e;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2e2e2e;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected {
+    -fx-background-color: #00aa00;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13;
+}
+
+/* CheckBox */
+.check-box {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12;
+}
+
+.check-box .box {
+    -fx-border-color: #00aa00;
+    -fx-border-radius: 3;
+    -fx-background-color: #2e2e2e;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #00aa00;
+}
+
+/* TitledPane */
+.titled-pane {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+.titled-pane:focused {
+    -fx-border-color: #00aa00;
+}
+
+/* ProgressBar */
+.progress-bar {
+    -fx-accent: #00ff00;
+}
+
+/* ScrollBar */
+.scroll-bar {
+    -fx-background-color: #2e2e2e;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #00aa00;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #00aa00;
+}

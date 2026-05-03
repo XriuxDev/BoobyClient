@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.boobyclient.launcher.LauncherController"
+      fx:id="mainContainer"
+      spacing="15"
+      padding="20"
+      style="-fx-background-color: #1e1e1e;">
+
+    <!-- Title -->
+    <HBox alignment="CENTER">
+        <Label text="BOOBY CLIENT" style="-fx-text-fill: #00ff00; -fx-font-size: 24; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <!-- Version Selector -->
+    <VBox spacing="5">
+        <Label text="Minecraft Version:" style="-fx-text-fill: #ffffff;"/>
+        <ComboBox fx:id="versionSelector" style="-fx-font-size: 12;"/>
+    </VBox>
+
+    <!-- Account Selector -->
+    <VBox spacing="5">
+        <Label text="Account:" style="-fx-text-fill: #ffffff;"/>
+        <ComboBox fx:id="accountSelector" style="-fx-font-size: 12;"/>
+    </VBox>
+
+    <!-- HUD Modules Settings -->
+    <TitledPane text="HUD Modules" collapsible="false" style="-fx-text-fill: #ffffff;">
+        <VBox spacing="10" padding="10" style="-fx-background-color: #252525;">
+            <CheckBox fx:id="toggleSprintCheckbox" text="Toggle Sprint (Fix vanilla auto-sprint)" style="-fx-text-fill: #ffffff;"/>
+            <CheckBox fx:id="fpsCounterCheckbox" text="FPS Counter" style="-fx-text-fill: #ffffff;"/>
+            <CheckBox fx:id="pingDisplayCheckbox" text="Ping Display" style="-fx-text-fill: #ffffff;"/>
+            <CheckBox fx:id="comboCounterCheckbox" text="Combo Counter" style="-fx-text-fill: #ffffff;"/>
+        </VBox>
+    </TitledPane>
+
+    <!-- Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="launchButton" text="Launch Game" style="-fx-font-size: 14; -fx-padding: 10;"/>
+        <Button fx:id="settingsButton" text="Settings" style="-fx-font-size: 14; -fx-padding: 10;"/>
+    </HBox>
+
+    <!-- Status -->
+    <VBox spacing="5">
+        <Label fx:id="statusLabel" text="Ready" style="-fx-text-fill: #00ff00;"/>
+        <ProgressBar fx:id="launchProgress" visible="false" style="-fx-accent: #00ff00;"/>
+    </VBox>
+
+    <!-- Spacer -->
+    <Region VBox.vgrow="ALWAYS"/>
+
+</VBox>
