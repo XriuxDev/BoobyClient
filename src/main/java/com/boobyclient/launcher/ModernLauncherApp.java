@@ -6,8 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -37,13 +39,15 @@ public class ModernLauncherApp extends Application {
 
     private void showUpdateStage(Stage primaryStage) {
         Label label = new Label("Checking for updates...");
-        ProgressIndicator spinner = new ProgressIndicator();
-        StackPane pane = new StackPane();
-        pane.setPrefSize(400, 200);
-        pane.getChildren().add(spinner);
-        pane.getChildren().add(label);
-        StackPane.setAlignment(label, javafx.geometry.Pos.BOTTOM_CENTER);
-        StackPane.setAlignment(spinner, javafx.geometry.Pos.CENTER);
+        ProgressBar bar = new ProgressBar();
+        bar.setPrefWidth(280);
+        bar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
+
+        VBox content = new VBox(12, label, bar);
+        content.setAlignment(Pos.CENTER);
+
+        StackPane pane = new StackPane(content);
+        pane.setPrefSize(420, 220);
 
         Scene scene = new Scene(pane);
         primaryStage.setTitle("Booby Client - Updating");

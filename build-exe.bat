@@ -111,7 +111,14 @@ if errorlevel 1 (
 
 echo.
 echo Installer created:
-for %%F in ("%INSTALLER_DIR%\%APP_NAME%-%APP_VERSION%.exe") do echo %%~fF
+set "OUTPUT_EXE=%APP_NAME%-%APP_VERSION%.exe"
+for %%F in ("%INSTALLER_DIR%\%OUTPUT_EXE%") do echo %%~fF
+
+if exist "%OUTPUT_EXE%" del /F /Q "%OUTPUT_EXE%"
+copy /Y "%INSTALLER_DIR%\%OUTPUT_EXE%" "%OUTPUT_EXE%" >nul
+
+echo.
+echo Copied installer to repo root: %OUTPUT_EXE%
 
 echo.
 echo Upload the installer to GitHub Pages and update update.json if needed.
