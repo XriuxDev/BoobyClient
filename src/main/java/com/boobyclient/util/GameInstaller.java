@@ -188,8 +188,18 @@ public class GameInstaller {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
         HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
         
+        if (response.statusCode() != 200) {
+            throw new RuntimeException("Failed to download " + url + ": HTTP " + response.statusCode());
+        }
+
         try (InputStream in = response.body(); FileOutputStream out = new FileOutputStream(dest)) {
             in.transferTo(out);
+        }
+        
+        // Simple validation for JAR files
+        if (dest.getName().endsWith(".jar") && dest.length() < 100) {
+            dest.delete();
+            throw new RuntimeException("Downloaded file " + dest.getName() + " is too small (likely a 404 page). Check your GitHub links!");
         }
     }
 }
