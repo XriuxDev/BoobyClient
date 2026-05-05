@@ -96,6 +96,7 @@ public class BoobyScreen extends Screen {
                 
                 if (mouseX >= boxX && mouseX <= boxX + boxW && mouseY >= boxY && mouseY <= boxY + boxH) {
                     module.setEnabled(!module.isEnabled());
+                    hudManager.saveConfig(); // Auto-save on toggle
                     return true;
                 }
                 yOffset += 42;
@@ -111,6 +112,7 @@ public class BoobyScreen extends Screen {
         int button = click.button();
         if (button == 0 && draggingModule != null) {
             draggingModule = null;
+            hudManager.saveConfig(); // Auto-save on release
             return true;
         }
         return super.mouseReleased(click);

@@ -22,7 +22,9 @@ public class CombatMixin {
             
             com.boobyclient.hud.modules.ReachDisplayModule reach = (com.boobyclient.hud.modules.ReachDisplayModule) BoobyMod.hudManager.getModule("reach_display");
             if (reach != null) {
-                float distance = player.distanceTo(target);
+                // Subtract hitbox offset for that "pro" feel
+                float distance = player.distanceTo(target) - 0.45f;
+                if (distance < 0) distance = 0;
                 reach.setLastReach(distance);
             }
         }

@@ -30,6 +30,7 @@ public class GameLauncher {
         public String uuid;
         public String authToken;
         public String launcherSocket;
+        public String profile;
         public HUDConfig hudModules;
     }
 
@@ -120,6 +121,11 @@ public class GameLauncher {
         if (config.launcherSocket != null && !config.launcherSocket.isEmpty()) {
             gameArgs.add("--launcher-socket");
             gameArgs.add(config.launcherSocket);
+        }
+
+        if (config.profile != null && !config.profile.isEmpty()) {
+            gameArgs.add("--profile");
+            gameArgs.add(config.profile);
         }
 
         if (config.hudModules != null) {

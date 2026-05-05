@@ -12,6 +12,11 @@ import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Controller for modern launcher UI (Feather Client style)
  * Handles authentication, version selection, and game launching
@@ -50,6 +55,7 @@ public class ModernLauncherController {
     private MinecraftAuthManager minecraftAuth;
     private SocketServer socketServer;
     private GameLauncher gameLauncher;
+    private String selectedProfile = "Default";
     private boolean isGameRunning = false;
 
     @FXML
@@ -116,6 +122,7 @@ public class ModernLauncherController {
             usernameLabel.setText("Logged in as: " + username);
             loginButton.setVisible(false);
             logoutButton.setVisible(true);
+            logoutButton.setManaged(true);
             versionSelector.setDisable(false);
             launchButton.setDisable(false);
             updateStatus("Ready to launch");
@@ -124,8 +131,10 @@ public class ModernLauncherController {
             // User needs to login
             usernameLabel.setText("Not logged in");
             loginButton.setVisible(true);
+            loginButton.setManaged(true);
             loginButton.setText("LOGIN WITH MICROSOFT");
             logoutButton.setVisible(false);
+            logoutButton.setManaged(false);
             versionSelector.setDisable(true);
             launchButton.setDisable(true);
             updateStatus("Click LOGIN to authenticate");
@@ -196,6 +205,18 @@ public class ModernLauncherController {
         config.uuid = minecraftAuth.getUUID();
         config.authToken = minecraftAuth.getAccessToken();
         config.launcherSocket = "localhost:25555";
+        config.profile = selectedProfile;
+        
+        // --- SAVE TO GLOBAL CONFIG ---
+        try {
+            com.boobyclient.config.ConfigManager configManager = new com.boobyclient.config.ConfigManager();
+            configManager.setConfig("currentProfile", selectedProfile);
+            configManager.saveGlobalConfig();
+            logger.info("Persisted currentProfile: {} to config.json", selectedProfile);
+        } catch (Exception e) {
+            logger.error("Failed to persist currentProfile", e);
+        }
+        
         config.hudModules = new GameLauncher.HUDConfig(true, true, true, true);
 
         // Launch in background
@@ -311,53 +332,73 @@ public class ModernLauncherController {
     private void createProfile() {
         String profileName = profileNameField.getText();
         if (profileName == null || profileName.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Invalid Input");
-            alert.setHeaderText("Profile name required");
-            alert.showAndWait();
             return;
         }
+        
         logger.info("Creating profile: {}", profileName);
-        profileNameField.clear();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText("Profile Created");
-        alert.setContentText("Profile '" + profileName + "' has been created!");
-        alert.showAndWait();
+        try {
+            com.boobyclient.config.ConfigManager configManager = new com.boobyclient.config.ConfigManager();
+            configManager.saveProfile(profileName, new HashMap<>());
+            loadProfilesList(); // Refresh list
+            profileNameField.clear();
+            
+            updateStatus("Profile '" + profileName + "' created");
+        } catch (Exception e) {
+            logger.error("Failed to create profile", e);
+        }
     }
 
     @FXML
     private void loadProfile() {
         String selected = profilesList.getSelectionModel().getSelectedItem();
         if (selected != null) {
+            this.selectedProfile = selected;
             logger.info("Loading profile: {}", selected);
+            updateStatus("Profile '" + selected + "' selected");
+            
+            // Visual feedback
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
-            alert.setHeaderText("Profile Loaded");
-            alert.setContentText("Profile '" + selected + "' has been loaded!");
+            alert.setHeaderText("Profile Selected");
+            alert.setContentText("Profile '" + selected + "' will be used for the next session.");
             alert.showAndWait();
+            
+            showHome(); // Switch back to home
         }
     }
 
     @FXML
     private void deleteProfile() {
         String selected = profilesList.getSelectionModel().getSelectedItem();
-        if (selected != null) {
+        if (selected != null && !selected.equalsIgnoreCase("Default")) {
             logger.info("Deleting profile: {}", selected);
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirm Delete");
-            alert.setHeaderText("Delete Profile");
-            alert.setContentText("Are you sure you want to delete '" + selected + "'?");
-            if (alert.showAndWait().get() == ButtonType.OK) {
-                logger.info("Profile deleted");
+            try {
+                File profileFile = new File(System.getProperty("user.home") + "/.boobyclient/profiles/" + selected + ".json");
+                if (profileFile.exists()) {
+                    profileFile.delete();
+                }
+                loadProfilesList();
+                updateStatus("Profile '" + selected + "' deleted");
+            } catch (Exception e) {
+                logger.error("Failed to delete profile", e);
             }
         }
     }
 
     private void loadProfilesList() {
-        // Placeholder - would load from ConfigManager
-        profilesList.getItems().clear();
-        profilesList.getItems().addAll("Default", "PvP", "Survival");
+        try {
+            com.boobyclient.config.ConfigManager configManager = new com.boobyclient.config.ConfigManager();
+            List<String> profiles = configManager.getAvailableProfiles();
+            profilesList.getItems().clear();
+            if (profiles.isEmpty()) {
+                profilesList.getItems().add("Default");
+            } else {
+                profilesList.getItems().addAll(profiles);
+            }
+        } catch (Exception e) {
+            logger.error("Failed to load profiles list", e);
+            profilesList.getItems().addAll("Default");
+        }
     }
 
     /**

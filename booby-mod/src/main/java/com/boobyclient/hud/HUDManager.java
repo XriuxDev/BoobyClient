@@ -19,7 +19,64 @@ public class HUDManager {
     public HUDManager(int screenWidth, int screenHeight) {
         this.renderer = new HUDRenderer(screenWidth, screenHeight);
         initializeModules();
+        loadConfig();
         logger.info("HUD Manager initialized with {} modules", modules.size());
+    }
+
+    /**
+     * Load configuration from current profile
+     */
+    public void loadConfig() {
+        try {
+            com.boobyclient.config.ConfigManager configManager = new com.boobyclient.config.ConfigManager();
+            String profile = (String) configManager.getConfig("currentProfile");
+            if (profile == null) profile = "Default";
+            
+            Map<String, Object> profileData = configManager.loadProfile(profile);
+            if (profileData != null && profileData.containsKey("modules")) {
+                Map<String, Map<String, Object>> modulesData = (Map<String, Map<String, Object>>) profileData.get("modules");
+                for (Map.Entry<String, Map<String, Object>> entry : modulesData.entrySet()) {
+                    HUDModule module = modules.get(entry.getKey());
+                    if (module != null) {
+                        Map<String, Object> data = entry.getValue();
+                        if (data.containsKey("x")) module.setX(((Double) data.get("x")).floatValue());
+                        if (data.containsKey("y")) module.setY(((Double) data.get("y")).floatValue());
+                        if (data.containsKey("enabled")) module.setEnabled((Boolean) data.get("enabled"));
+                    }
+                }
+                logger.info("Loaded HUD config for profile: {}", profile);
+            }
+        } catch (Exception e) {
+            logger.error("Failed to load HUD config", e);
+        }
+    }
+
+    /**
+     * Save configuration to current profile
+     */
+    public void saveConfig() {
+        try {
+            com.boobyclient.config.ConfigManager configManager = new com.boobyclient.config.ConfigManager();
+            String profile = (String) configManager.getConfig("currentProfile");
+            if (profile == null) profile = "Default";
+
+            Map<String, Object> profileData = configManager.loadProfile(profile);
+            Map<String, Map<String, Object>> modulesData = new HashMap<>();
+
+            for (HUDModule module : modules.values()) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("x", (double) module.getX());
+                data.put("y", (double) module.getY());
+                data.put("enabled", module.isEnabled());
+                modulesData.put(module.getModuleId(), data);
+            }
+
+            profileData.put("modules", modulesData);
+            configManager.saveProfile(profile, profileData);
+            logger.info("Saved HUD config for profile: {}", profile);
+        } catch (Exception e) {
+            logger.error("Failed to save HUD config", e);
+        }
     }
 
     /**

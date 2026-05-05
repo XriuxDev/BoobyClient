@@ -153,17 +153,32 @@
 
 /* ListViews */
 .list-view {
-    -fx-background-color: rgba(15, 23, 42, 0.5);
+    -fx-background-color: rgba(15, 23, 42, 0.4);
     -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 8;
 }
 
 .list-view .list-cell {
+    -fx-background-color: transparent;
     -fx-text-fill: #94a3b8;
+    -fx-padding: 12 16;
+    -fx-font-weight: bold;
+    -fx-border-color: rgba(255, 255, 255, 0.03);
+    -fx-border-width: 0 0 1 0;
+}
+
+.list-view .list-cell:filled:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-text-fill: white;
 }
 
 .list-view .list-cell:filled:selected {
-    -fx-background-color: rgba(99, 102, 241, 0.2);
+    -fx-background-color: linear-gradient(to right, rgba(99, 102, 241, 0.3), transparent);
     -fx-text-fill: #818cf8;
+    -fx-border-color: #6366f1;
+    -fx-border-width: 0 0 0 4;
 }
 
 /* ProgressBar */
