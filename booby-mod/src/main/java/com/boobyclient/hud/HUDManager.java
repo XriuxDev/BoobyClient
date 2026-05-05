@@ -60,7 +60,7 @@ public class HUDManager {
         }
         
         // Render Mod Menu Overlay on top of everything else
-        modMenu.render();
+        modMenu.render(renderer);
     }
 
     /**

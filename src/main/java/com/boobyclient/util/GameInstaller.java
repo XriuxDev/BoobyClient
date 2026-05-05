@@ -146,8 +146,8 @@ public class GameInstaller {
                 modsDir.mkdirs();
                 File modFile = new File(modsDir, "booby-mod.jar");
                 
-                // Link to your mod on GitHub (using the same 'release' tag logic)
-                String modUrl = "https://github.com/XriuxDev/BoobyClient/releases/download/release/booby-mod.jar";
+                // Link to your mod on GitHub (using the actual v1.0.8 tag)
+                String modUrl = "https://github.com/XriuxDev/BoobyClient/releases/download/v1.0.8/booby-mod.jar";
                 downloadFile(modUrl, modFile);
                 progressCallback.accept("Booby Client mod deployed successfully!");
                 

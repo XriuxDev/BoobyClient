@@ -45,7 +45,7 @@ public class ToggleSprintModule extends HUDModule {
         net.minecraft.client.MinecraftClient client = net.minecraft.client.MinecraftClient.getInstance();
         if (client.player != null && enabled) {
             // If moving forward and toggle is on, force sprint
-            if (client.options.forwardKey.isPressed() && !client.player.isHorizontalCollision() && !client.player.isSneaking()) {
+            if (client.options.forwardKey.isPressed() && !client.player.horizontalCollision && !client.player.isSneaking()) {
                 client.player.setSprinting(true);
                 sprintActive = true;
             } else {
