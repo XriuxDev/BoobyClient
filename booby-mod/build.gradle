@@ -15,6 +15,9 @@ repositories {
 }
 
 loom {
+    mixin {
+        defaultRefmapName = "boobyclient-refmap.json"
+    }
 }
 
 dependencies {

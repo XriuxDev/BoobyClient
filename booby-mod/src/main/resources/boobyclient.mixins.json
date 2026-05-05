@@ -10,7 +10,8 @@
     "GuiMixin",
     "KeyboardMixin",
     "MinecraftClientMixin",
-    "CombatMixin"
+    "CombatMixin",
+    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
