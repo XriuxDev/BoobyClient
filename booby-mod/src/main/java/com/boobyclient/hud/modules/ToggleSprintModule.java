@@ -13,12 +13,11 @@ public class ToggleSprintModule extends HUDModule {
     private static final Logger logger = LoggerFactory.getLogger(ToggleSprintModule.class);
 
     private boolean sprintActive = false;
-    private boolean wasSprintingLastTick = false;
 
     public ToggleSprintModule() {
         super("toggle_sprint", "Toggle Sprint");
         this.x = 10;
-        this.y = 100;
+        this.y = 80;
         logger.info("Toggle Sprint module initialized");
     }
 
@@ -26,32 +25,38 @@ public class ToggleSprintModule extends HUDModule {
     public void render(HUDRenderer renderer) {
         if (!enabled) return;
 
-        int color = sprintActive ? HUDRenderer.getColor(0, 255, 0) : HUDRenderer.getColor(100, 100, 100);
-        renderer.drawText("SPRINT: " + (sprintActive ? "ON" : "OFF"), x, y, color, scale);
+        // GOATED Style Colors
+        int backgroundColor = HUDRenderer.getColor(15, 23, 42, 160); // Deep charcoal glass
+        int glowColor = sprintActive ? HUDRenderer.getColor(34, 197, 94, 100) : HUDRenderer.getColor(99, 102, 241, 60);
+
+        int textColor = sprintActive ? HUDRenderer.getColor(34, 197, 94) : HUDRenderer.getColor(148, 163, 184);
+
+        // Draw Premium Background
+        renderer.drawGlow(x - 4, y - 4, 100, 20, 6, glowColor);
+        renderer.drawRoundedRect(x - 4, y - 4, 100, 20, 6, backgroundColor);
+
+        // Draw Text
+        renderer.drawText("SPRINT", x, y + 2, HUDRenderer.getColor(148, 163, 184), 0.7f);
+        renderer.drawText(sprintActive ? "ACTIVE" : "TOGGLED", x + 45, y, textColor, 1.0f);
     }
 
     @Override
     public void tick() {
-        // This would integrate with Minecraft's input handling
-        // For now, simulate sprint state
-        if (wasSprintingLastTick) {
-            sprintActive = true;
+        net.minecraft.client.MinecraftClient client = net.minecraft.client.MinecraftClient.getInstance();
+        if (client.player != null && enabled) {
+            // If moving forward and toggle is on, force sprint
+            if (client.options.forwardKey.isPressed() && !client.player.isHorizontalCollision() && !client.player.isSneaking()) {
+                client.player.setSprinting(true);
+                sprintActive = true;
+            } else {
+                sprintActive = false;
+            }
         }
     }
 
     @Override
     public void onInput(int keyCode, int scanCode, int action) {
-        // keyCode 48 = 'W' key
-        // action: 1 = pressed, 0 = released
-        if (keyCode == 48) {
-            if (action == 1) {
-                sprintActive = true;
-                wasSprintingLastTick = true;
-            } else if (action == 0) {
-                sprintActive = false;
-                wasSprintingLastTick = false;
-            }
-        }
+        // Handle custom toggle key if needed
     }
 
     public boolean isSprintActive() {

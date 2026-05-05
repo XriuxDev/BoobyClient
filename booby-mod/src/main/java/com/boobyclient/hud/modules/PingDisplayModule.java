@@ -25,30 +25,37 @@ public class PingDisplayModule extends HUDModule {
     public void render(HUDRenderer renderer) {
         if (!enabled) return;
 
-        // Simulate ping update (in real implementation, would query server)
-        long now = System.currentTimeMillis();
-        if (now - lastPingUpdate > 500) {
-            updatePing();
-            lastPingUpdate = now;
-        }
+        // GOATED Style Colors
+        int backgroundColor = HUDRenderer.getColor(15, 23, 42, 160); // Deep charcoal glass
+        int glowColor = HUDRenderer.getColor(99, 102, 241, 100); // Indigo glow
 
-        // Color: green if <50ms, yellow if 50-150ms, red if >150ms
-        int color;
+        int textColor;
         if (currentPing < 50) {
-            color = HUDRenderer.getColor(0, 255, 0); // Green
+            textColor = HUDRenderer.getColor(34, 197, 94); // Green
         } else if (currentPing < 150) {
-            color = HUDRenderer.getColor(255, 255, 0); // Yellow
+            textColor = HUDRenderer.getColor(234, 179, 8); // Yellow
         } else {
-            color = HUDRenderer.getColor(255, 0, 0); // Red
+            textColor = HUDRenderer.getColor(239, 68, 68); // Red
         }
 
-        renderer.drawText("PING: " + currentPing + "ms", x, y, color, scale);
+        // Draw Premium Background
+        renderer.drawGlow(x - 4, y - 34, 75, 20, 6, glowColor);
+        renderer.drawRoundedRect(x - 4, y - 34, 75, 20, 6, backgroundColor);
+
+        // Draw Text
+        renderer.drawText("MS", x, y - 28, HUDRenderer.getColor(148, 163, 184), 0.7f);
+        renderer.drawText(String.valueOf(currentPing), x + 24, y - 30, textColor, 1.0f);
     }
 
-    private void updatePing() {
-        // In real implementation, this would measure actual network latency
-        // For now, simulate with a random value
-        currentPing = 20 + (int)(Math.random() * 50);
+    @Override
+    public void tick() {
+        net.minecraft.client.MinecraftClient client = net.minecraft.client.MinecraftClient.getInstance();
+        if (client.getNetworkHandler() != null && client.player != null) {
+            net.minecraft.client.network.PlayerListEntry entry = client.getNetworkHandler().getPlayerListEntry(client.player.getUuid());
+            if (entry != null) {
+                currentPing = entry.getLatency();
+            }
+        }
     }
 
     public int getCurrentPing() {

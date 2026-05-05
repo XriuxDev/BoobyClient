@@ -37,17 +37,26 @@ public class FPSCounterModule extends HUDModule {
             lastUpdateTime = currentTime;
         }
 
-        // Color: green if >60 FPS, yellow if 30-60, red if <30
-        int color;
+        // GOATED Style Colors
+        int backgroundColor = HUDRenderer.getColor(15, 23, 42, 160); // Deep charcoal glass
+        int glowColor = HUDRenderer.getColor(99, 102, 241, 100); // Indigo glow
+
+        int textColor;
         if (currentFPS >= 60) {
-            color = HUDRenderer.getColor(0, 255, 0); // Green
+            textColor = HUDRenderer.getColor(34, 197, 94); // Green
         } else if (currentFPS >= 30) {
-            color = HUDRenderer.getColor(255, 255, 0); // Yellow
+            textColor = HUDRenderer.getColor(234, 179, 8); // Yellow
         } else {
-            color = HUDRenderer.getColor(255, 0, 0); // Red
+            textColor = HUDRenderer.getColor(239, 68, 68); // Red
         }
 
-        renderer.drawText("FPS: " + currentFPS, x, y, color, scale);
+        // Draw Premium Background
+        renderer.drawGlow(x - 4, y - 4, 60, 20, 6, glowColor);
+        renderer.drawRoundedRect(x - 4, y - 4, 60, 20, 6, backgroundColor);
+
+        // Draw Text
+        renderer.drawText("FPS", x, y + 2, HUDRenderer.getColor(148, 163, 184), 0.7f); // Muted label
+        renderer.drawText(String.valueOf(currentFPS), x + 24, y, textColor, 1.0f); // Bright value
     }
 
     public int getCurrentFPS() {

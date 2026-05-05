@@ -8,7 +8,8 @@
   "client": [
     "GuiMixin",
     "KeyboardMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "CombatMixin"
   ],
   "injectors": {
     "defaultRequire": 1

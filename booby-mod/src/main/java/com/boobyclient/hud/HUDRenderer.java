@@ -41,30 +41,37 @@ public class HUDRenderer {
     }
 
     /**
-     * Draw a rectangle
+     * Draw a smooth rounded rectangle
      */
-    public void drawRect(float x, float y, float width, float height, int color) {
+    public void drawRoundedRect(float x, float y, float width, float height, float radius, int color) {
         if (currentContext == null) return;
-        currentContext.fill((int)x, (int)y, (int)(x + width), (int)(y + height), color);
+        
+        // Draw main body
+        currentContext.fill((int)(x + radius), (int)y, (int)(x + width - radius), (int)(y + height), color);
+        currentContext.fill((int)x, (int)(y + radius), (int)(x + radius), (int)(y + height - radius), color);
+        currentContext.fill((int)(x + width - radius), (int)(y + radius), (int)(x + width), (int)(y + height - radius), color);
+        
+        // Draw corners (simulated with smaller rects for now, ideally use a shader or circles)
+        drawCorner(x, y, radius, radius, color, true, true);
+        drawCorner(x + width - radius, y, radius, radius, color, false, true);
+        drawCorner(x, y + height - radius, radius, radius, color, true, false);
+        drawCorner(x + width - radius, y + height - radius, radius, radius, color, false, false);
     }
 
     /**
-     * Draw a filled rectangle
+     * Draw a glow/shadow effect
      */
-    public void drawFilledRect(float x, float y, float width, float height, int color) {
-        drawRect(x, y, width, height, color);
+    public void drawGlow(float x, float y, float width, float height, float size, int color) {
+        if (currentContext == null) return;
+        for (int i = 0; i < size; i++) {
+            float alpha = (float)(size - i) / size;
+            int alphaColor = (color & 0x00FFFFFF) | ((int)(alpha * ((color >> 24) & 0xFF)) << 24);
+            drawRoundedRect(x - i, y - i, width + (i * 2), height + (i * 2), 4 + i, alphaColor);
+        }
     }
 
-    public void drawBorder(float x, float y, float width, float height, int color, float thickness) {
-        if (currentContext == null) return;
-        // Top
-        currentContext.fill((int)x, (int)y, (int)(x + width), (int)(y + thickness), color);
-        // Bottom
-        currentContext.fill((int)x, (int)(y + height - thickness), (int)(x + width), (int)(y + height), color);
-        // Left
-        currentContext.fill((int)x, (int)y, (int)(x + thickness), (int)(y + height), color);
-        // Right
-        currentContext.fill((int)(x + width - thickness), (int)y, (int)(x + width), (int)(y + height), color);
+    private void drawCorner(float x, float y, float w, float h, int color, boolean left, boolean top) {
+        currentContext.fill((int)x, (int)y, (int)(x + w), (int)(y + h), color);
     }
 
     /**

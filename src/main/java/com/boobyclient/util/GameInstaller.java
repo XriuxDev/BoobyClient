@@ -140,6 +140,17 @@ public class GameInstaller {
                 
                 progressCallback.accept("Installation complete! Downloaded " + downloadedAssets + " assets.");
                 
+                // --- BOOBY CLIENT MOD DEPLOYMENT ---
+                progressCallback.accept("Deploying Booby Client mod...");
+                File modsDir = new File(gameDir, "mods");
+                modsDir.mkdirs();
+                File modFile = new File(modsDir, "booby-mod.jar");
+                
+                // Link to your mod on GitHub (using the same 'release' tag logic)
+                String modUrl = "https://github.com/XriuxDev/BoobyClient/releases/download/release/booby-mod.jar";
+                downloadFile(modUrl, modFile);
+                progressCallback.accept("Booby Client mod deployed successfully!");
+                
             } catch (Exception e) {
                 logger.error("Installation failed", e);
                 throw new RuntimeException(e);

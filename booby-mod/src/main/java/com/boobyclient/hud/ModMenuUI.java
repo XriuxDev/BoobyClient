@@ -37,6 +37,52 @@ public class ModMenuUI {
     }
     
     /**
+     * Render the Mod Menu overlay
+     */
+    public void render(HUDRenderer renderer) {
+        if (!isVisible) return;
+        
+        int screenW = renderer.getScreenWidth();
+        int screenH = renderer.getScreenHeight();
+        
+        // --- GOATED Menu Design ---
+        float menuW = 320;
+        float menuH = 240;
+        float x = (screenW / 2f) - (menuW / 2f);
+        float y = (screenH / 2f) - (menuH / 2f);
+        
+        // 1. Shadow/Glow
+        renderer.drawGlow(x, y, menuW, menuH, 15, HUDRenderer.getColor(99, 102, 241, 80));
+        
+        // 2. Main Glass Panel
+        renderer.drawRoundedRect(x, y, menuW, menuH, 12, HUDRenderer.getColor(15, 23, 42, 230));
+        
+        // 3. Title Bar
+        renderer.drawRoundedRect(x, y, menuW, 35, 12, HUDRenderer.getColor(99, 102, 241, 180));
+        renderer.drawText("BOOBY CLIENT", x + 15, y + 10, HUDRenderer.getColor(255, 255, 255), 1.0f);
+        renderer.drawText("MOD SETTINGS", x + 15, y + 22, HUDRenderer.getColor(200, 200, 200, 150), 0.6f);
+        
+        // 4. Module Toggles
+        float yOffset = 50;
+        for (HUDModule module : hudManager.getAllModules()) {
+            boolean enabled = module.isEnabled();
+            int statusColor = enabled ? HUDRenderer.getColor(34, 197, 94) : HUDRenderer.getColor(239, 68, 68);
+            
+            // Module Card
+            renderer.drawRoundedRect(x + 10, y + yOffset, menuW - 20, 35, 8, HUDRenderer.getColor(30, 41, 59, 180));
+            
+            // Text Info
+            renderer.drawText(module.getDisplayName(), x + 25, y + yOffset + 12, HUDRenderer.getColor(226, 232, 240), 0.9f);
+            
+            // Toggle Switch Simulation
+            renderer.drawRoundedRect(x + menuW - 60, y + yOffset + 10, 35, 15, 7, HUDRenderer.getColor(15, 23, 42));
+            renderer.drawRoundedRect(x + menuW - (enabled ? 40 : 58), y + yOffset + 12, 11, 11, 5, statusColor);
+            
+            yOffset += 42;
+        }
+    }
+    
+    /**
      * Handle mouse clicks for toggling modules
      */
     public boolean handleMouseClick(double mouseX, double mouseY, int button) {

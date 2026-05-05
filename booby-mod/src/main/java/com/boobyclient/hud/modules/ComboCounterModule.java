@@ -24,18 +24,26 @@ public class ComboCounterModule extends HUDModule {
 
     @Override
     public void render(HUDRenderer renderer) {
-        if (!enabled) return;
+        if (!enabled || comboCount <= 0) return;
 
-        // Check if combo should be reset
+        // Reset if timeout
         long currentTime = System.currentTimeMillis();
-        if (comboCount > 0 && currentTime - lastHitTime > COMBO_RESET_TIME) {
+        if (currentTime - lastHitTime > COMBO_RESET_TIME) {
             comboCount = 0;
+            return;
         }
 
-        if (comboCount > 0) {
-            int color = HUDRenderer.getColor(255, 200, 0); // Gold color
-            renderer.drawText("COMBO: " + comboCount, x, y, color, scale);
-        }
+        // GOATED Style Colors
+        int backgroundColor = HUDRenderer.getColor(15, 23, 42, 160); // Deep charcoal glass
+        int glowColor = HUDRenderer.getColor(251, 191, 36, 120); // Gold glow
+
+        // Draw Premium Background
+        renderer.drawGlow(x - 4, y - 54, 90, 20, 8, glowColor);
+        renderer.drawRoundedRect(x - 4, y - 54, 90, 20, 6, backgroundColor);
+
+        // Draw Text
+        renderer.drawText("COMBO", x, y - 48, HUDRenderer.getColor(148, 163, 184), 0.7f);
+        renderer.drawText(comboCount + " HITS", x + 40, y - 50, HUDRenderer.getColor(251, 191, 36), 1.0f);
     }
 
     /**
