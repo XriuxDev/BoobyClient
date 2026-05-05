@@ -14,12 +14,10 @@ public class HUDManager {
 
     private final Map<String, HUDModule> modules = new LinkedHashMap<>();
     private final HUDRenderer renderer;
-    private final ModMenuUI modMenu;
     private boolean enabled = true;
 
     public HUDManager(int screenWidth, int screenHeight) {
         this.renderer = new HUDRenderer(screenWidth, screenHeight);
-        this.modMenu = new ModMenuUI(this);
         initializeModules();
         logger.info("HUD Manager initialized with {} modules", modules.size());
     }
@@ -32,6 +30,7 @@ public class HUDManager {
         registerModule(new PingDisplayModule());
         registerModule(new ToggleSprintModule());
         registerModule(new ComboCounterModule());
+        registerModule(new ReachDisplayModule());
     }
 
     /**
@@ -48,7 +47,7 @@ public class HUDManager {
     public void render() {
         if (!enabled) return;
 
-        // Render standard HUD modules if menu is NOT fully blocking
+        // Render standard HUD modules directly. We don't render menu here anymore!
         for (HUDModule module : modules.values()) {
             if (module.isEnabled()) {
                 try {
@@ -58,9 +57,6 @@ public class HUDManager {
                 }
             }
         }
-        
-        // Render Mod Menu Overlay on top of everything else
-        modMenu.render(renderer);
     }
 
     /**
@@ -78,33 +74,6 @@ public class HUDManager {
                 }
             }
         }
-    }
-
-    /**
-     * Handle input for modules
-     */
-    public void handleInput(int keyCode, int scanCode, int action) {
-        // If ModMenu handles the input (e.g., toggling or blocking), stop processing
-        if (modMenu.handleInput(keyCode, action)) {
-            return;
-        }
-        
-        for (HUDModule module : modules.values()) {
-            if (module.isEnabled()) {
-                try {
-                    module.onInput(keyCode, scanCode, action);
-                } catch (Exception e) {
-                    logger.error("Error handling input for module: {}", module.getModuleId(), e);
-                }
-            }
-        }
-    }
-    
-    /**
-     * Handle mouse clicks from the game (e.g. from Mixin)
-     */
-    public boolean handleMouseClick(double mouseX, double mouseY, int button) {
-        return modMenu.handleMouseClick(mouseX, mouseY, button);
     }
 
     /**

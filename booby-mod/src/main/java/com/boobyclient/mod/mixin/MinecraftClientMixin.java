@@ -8,9 +8,4 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-    
-    @Inject(method = "method_44645", at = @At("HEAD"), cancellable = true, remap = false)
-    private void onGetVersionType(CallbackInfoReturnable<String> cir) {
-        cir.setReturnValue("release");
-    }
 }

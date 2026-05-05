@@ -8,6 +8,7 @@ public abstract class HUDModule {
     protected String displayName;
     protected boolean enabled;
     protected float x, y;
+    protected float width = 60, height = 20;
     protected float scale;
 
     public HUDModule(String moduleId, String displayName) {
@@ -17,6 +18,18 @@ public abstract class HUDModule {
         this.x = 10;
         this.y = 10;
         this.scale = 1.0f;
+    }
+
+    public boolean isHovered(float mouseX, float mouseY) {
+        return mouseX >= x - 4 && mouseX <= x + width + 4 && mouseY >= y - 4 && mouseY <= y + height + 4;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 
     /**

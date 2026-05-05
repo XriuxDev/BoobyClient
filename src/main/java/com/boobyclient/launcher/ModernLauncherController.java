@@ -68,8 +68,8 @@ public class ModernLauncherController {
         setupAuthenticationUI();
 
         // Populate version selector
-        versionSelector.getItems().addAll("26.1.2", "26.1.1", "26.1", "1.21.2");
-        versionSelector.setValue("26.1.2");
+        versionSelector.getItems().addAll("1.21.11", "1.8.9");
+        versionSelector.setValue("1.21.11");
 
         // Populate memory selector
         memorySelector.getItems().addAll("2G", "4G", "6G", "8G");
@@ -219,6 +219,18 @@ public class ModernLauncherController {
                 gameLauncher.launch(config);
                 updateStatus("Game closed.");
                 logger.info("Game closed");
+                
+                // --- AUTO-CLEANUP ---
+                try {
+                    java.io.File modFile = new java.io.File(mcDir, "mods/booby-mod.jar");
+                    if (modFile.exists()) {
+                        modFile.delete();
+                        logger.info("Auto-Cleanup: Removed booby-mod.jar");
+                    }
+                } catch (Exception e) {
+                    logger.error("Auto-Cleanup failed", e);
+                }
+                
                 Platform.runLater(() -> launchButton.setDisable(false));
             } catch (Exception e) {
                 logger.error("Failed to launch game", e);

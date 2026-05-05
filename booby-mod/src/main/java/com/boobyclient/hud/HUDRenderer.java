@@ -31,13 +31,13 @@ public class HUDRenderer {
     public void drawText(String text, float x, float y, int color, float scale) {
         if (currentContext == null) return;
         
-        currentContext.getMatrices().push();
-        currentContext.getMatrices().translate(x, y, 0);
-        currentContext.getMatrices().scale(scale, scale, 1.0f);
+        currentContext.getMatrices().pushMatrix();
+        currentContext.getMatrices().translate(x, y);
+        currentContext.getMatrices().scale(scale, scale);
         
         currentContext.drawText(MinecraftClient.getInstance().textRenderer, text, 0, 0, color, true);
         
-        currentContext.getMatrices().pop();
+        currentContext.getMatrices().popMatrix();
     }
 
     /**

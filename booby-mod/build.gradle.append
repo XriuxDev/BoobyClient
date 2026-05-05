@@ -1,0 +1,4 @@
+task runTest(type: JavaExec) {
+    mainClass = "com.boobyclient.mod.mixin.Test"
+    classpath = sourceSets.main.runtimeClasspath
+}

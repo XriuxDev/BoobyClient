@@ -19,6 +19,12 @@ public class CombatMixin {
             if (combo != null) {
                 combo.onHit();
             }
+            
+            com.boobyclient.hud.modules.ReachDisplayModule reach = (com.boobyclient.hud.modules.ReachDisplayModule) BoobyMod.hudManager.getModule("reach_display");
+            if (reach != null) {
+                float distance = player.distanceTo(target);
+                reach.setLastReach(distance);
+            }
         }
     }
 }

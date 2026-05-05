@@ -17,7 +17,9 @@ public class PingDisplayModule extends HUDModule {
     public PingDisplayModule() {
         super("ping_display", "Ping Display");
         this.x = 10;
-        this.y = 30;
+        this.y = 40;
+        this.width = 65;
+        this.height = 20;
         logger.info("Ping Display module initialized");
     }
 
@@ -39,21 +41,35 @@ public class PingDisplayModule extends HUDModule {
         }
 
         // Draw Premium Background
-        renderer.drawGlow(x - 4, y - 34, 75, 20, 6, glowColor);
-        renderer.drawRoundedRect(x - 4, y - 34, 75, 20, 6, backgroundColor);
+        renderer.drawGlow(x - 4, y - 4, 75, 20, 6, glowColor);
+        renderer.drawRoundedRect(x - 4, y - 4, 75, 20, 6, backgroundColor);
 
         // Draw Text
-        renderer.drawText("MS", x, y - 28, HUDRenderer.getColor(148, 163, 184), 0.7f);
-        renderer.drawText(String.valueOf(currentPing), x + 24, y - 30, textColor, 1.0f);
+        renderer.drawText("MS", x, y + 2, HUDRenderer.getColor(148, 163, 184), 0.7f);
+        renderer.drawText(String.valueOf(currentPing), x + 24, y, textColor, 1.0f);
     }
 
     @Override
     public void tick() {
         net.minecraft.client.MinecraftClient client = net.minecraft.client.MinecraftClient.getInstance();
+        if (!enabled) return;
+
+        if (client.isInSingleplayer()) {
+            currentPing = 0;
+            return;
+        }
+
         if (client.getNetworkHandler() != null && client.player != null) {
-            net.minecraft.client.network.PlayerListEntry entry = client.getNetworkHandler().getPlayerListEntry(client.player.getUuid());
-            if (entry != null) {
-                currentPing = entry.getLatency();
+            // More thorough check: Iterate through player list if direct fetch fails
+            java.util.Collection<net.minecraft.client.network.PlayerListEntry> entries = client.getNetworkHandler().getPlayerList();
+            for (net.minecraft.client.network.PlayerListEntry entry : entries) {
+                if (entry.getProfile().id().equals(client.player.getUuid())) {
+                    int ping = entry.getLatency();
+                    if (ping > 0) {
+                        currentPing = ping;
+                    }
+                    break;
+                }
             }
         }
     }
