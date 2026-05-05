@@ -1,6 +1,6 @@
 {
-  "version": "1.0.9",
-  "installerUrl": "https://github.com/XriuxDev/BoobyClient/releases/download/release/BoobyLauncherSetup-1.0.9.exe",
+  "version": "1.1.0",
+  "installerUrl": "https://github.com/XriuxDev/BoobyClient/releases/download/release/BoobyLauncherSetup-1.1.0.exe",
   "sha256": "",
-  "notes": "GOATED Update: Added new HUD, fixed combat, and automated mod deployment!"
+  "notes": "HIM Update"
 }
