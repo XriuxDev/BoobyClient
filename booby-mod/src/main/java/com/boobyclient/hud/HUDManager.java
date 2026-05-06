@@ -99,6 +99,7 @@ public class HUDManager {
         registerModule(new ReachDisplayModule());
         registerInvisibleModule(new ZoomModule());
         registerInvisibleModule(new FullBrightModule());
+        registerInvisibleModule(new HitboxModule());
     }
 
     /**
@@ -126,7 +127,7 @@ public class HUDManager {
 
         // Render standard HUD modules directly. We don't render menu here anymore!
         for (HUDModule module : modules.values()) {
-            if (module.isEnabled() && !invisibleModules.containsKey(module.getModuleId())) {
+            if (module.isEnabled()) {
                 try {
                     module.render(renderer);
                 } catch (Exception e) {
