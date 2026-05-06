@@ -28,7 +28,6 @@ public class ReachDisplayModule extends HUDModule {
         if (!enabled) return;
 
         // GOATED Style Colors
-        int backgroundColor = HUDRenderer.getColor(15, 23, 42, 160); // Deep charcoal glass
         int glowColor = HUDRenderer.getColor(249, 115, 22, 100); // Orange glow for combat
         
         // Only show if it's been less than 2 seconds since last hit
@@ -37,8 +36,7 @@ public class ReachDisplayModule extends HUDModule {
         }
 
         // Draw Premium Background
-        renderer.drawGlow(x - 4, y - 4, 90, 20, 6, glowColor);
-        renderer.drawRoundedRect(x - 4, y - 4, 90, 20, 6, backgroundColor);
+        renderer.drawModuleSurface(x - 4, y - 4, 90, 20, glowColor);
 
         // Draw Text
         renderer.drawText("REACH", x, y + 2, HUDRenderer.getColor(148, 163, 184), 0.7f);

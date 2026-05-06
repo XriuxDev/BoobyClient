@@ -28,12 +28,10 @@ public class ToggleSprintModule extends HUDModule {
         if (!enabled) return;
 
         // GOATED Style Colors
-        int backgroundColor = HUDRenderer.getColor(15, 23, 42, 160); // Deep charcoal glass
         int statusColor = sprintActive ? HUDRenderer.getColor(34, 197, 94) : HUDRenderer.getColor(148, 163, 184);
 
         // Draw Premium Background
-        renderer.drawGlow(x - 4, y - 4, 100, 20, 6, sprintActive ? HUDRenderer.getColor(34, 197, 94, 80) : HUDRenderer.getColor(99, 102, 241, 40));
-        renderer.drawRoundedRect(x - 4, y - 4, 100, 20, 6, backgroundColor);
+        renderer.drawModuleSurface(x - 4, y - 4, 100, 20, sprintActive ? HUDRenderer.getColor(34, 197, 94, 80) : HUDRenderer.getColor(99, 102, 241, 40));
 
         // Draw Text
         renderer.drawText("SPRINT", x, y + 2, HUDRenderer.getColor(148, 163, 184, 200), 0.7f);

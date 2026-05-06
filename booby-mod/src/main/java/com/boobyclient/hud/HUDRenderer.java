@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
  */
 public class HUDRenderer {
     private static final Logger logger = LoggerFactory.getLogger(HUDRenderer.class);
+    private static boolean moduleBackgroundsEnabled = true;
 
     private int screenWidth;
     private int screenHeight;
@@ -30,14 +31,31 @@ public class HUDRenderer {
      */
     public void drawText(String text, float x, float y, int color, float scale) {
         if (currentContext == null) return;
-        
+
         currentContext.getMatrices().pushMatrix();
         currentContext.getMatrices().translate(x, y);
         currentContext.getMatrices().scale(scale, scale);
-        
-        currentContext.drawText(MinecraftClient.getInstance().textRenderer, text, 0, 0, color, true);
-        
+
+        var textRenderer = MinecraftClient.getInstance().textRenderer;
+        if (!moduleBackgroundsEnabled) {
+            int outline = HUDRenderer.getColor(0, 0, 0, 210);
+            currentContext.drawText(textRenderer, text, -1, 0, outline, false);
+            currentContext.drawText(textRenderer, text, 1, 0, outline, false);
+            currentContext.drawText(textRenderer, text, 0, -1, outline, false);
+            currentContext.drawText(textRenderer, text, 0, 1, outline, false);
+            currentContext.drawText(textRenderer, text, -1, -1, outline, false);
+            currentContext.drawText(textRenderer, text, 1, -1, outline, false);
+            currentContext.drawText(textRenderer, text, -1, 1, outline, false);
+            currentContext.drawText(textRenderer, text, 1, 1, outline, false);
+        }
+
+        currentContext.drawText(textRenderer, text, 0, 0, color, true);
+
         currentContext.getMatrices().popMatrix();
+    }
+
+    public float getTextWidth(String text, float scale) {
+        return MinecraftClient.getInstance().textRenderer.getWidth(text) * scale;
     }
 
     /**
@@ -74,6 +92,12 @@ public class HUDRenderer {
         currentContext.fill((int)x, (int)y, (int)(x + w), (int)(y + h), color);
     }
 
+    public void drawModuleSurface(float x, float y, float width, float height, int accentColor) {
+        if (!moduleBackgroundsEnabled) return;
+        drawGlow(x - 2, y - 2, width + 4, height + 4, 4, accentColor);
+        drawRoundedRect(x - 2, y - 2, width + 4, height + 4, 5, HUDRenderer.getColor(15, 23, 42, 145));
+    }
+
     /**
      * Update screen dimensions (called on window resize)
      */
@@ -98,5 +122,13 @@ public class HUDRenderer {
 
     public static int getColor(int r, int g, int b, int a) {
         return (a << 24) | (r << 16) | (g << 8) | b;
+    }
+
+    public static boolean isModuleBackgroundsEnabled() {
+        return moduleBackgroundsEnabled;
+    }
+
+    public static void setModuleBackgroundsEnabled(boolean enabled) {
+        moduleBackgroundsEnabled = enabled;
     }
 }

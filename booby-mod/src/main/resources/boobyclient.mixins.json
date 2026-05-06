@@ -13,7 +13,10 @@
     "CombatMixin",
     "PlayerMixin",
     "KeyBindingAccessor",
-    "SprintMixin"
+    "SprintMixin",
+    "ZoomMixin",
+    "MouseMixin",
+    "EntityHitboxDebugRendererInvoker"
   ],
   "injectors": {
     "defaultRequire": 1

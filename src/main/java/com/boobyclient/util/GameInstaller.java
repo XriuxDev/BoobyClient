@@ -154,7 +154,19 @@ public class GameInstaller {
                 } else {
                     progressCallback.accept("Booby Client mod is up to date.");
                 }
-                
+
+                // --- SODIUM MOD DEPLOYMENT ---
+                File sodiumFile = new File(modsDir, "sodium-fabric-0.8.11+mc1.21.11.jar");
+
+                if (!sodiumFile.exists() || sodiumFile.length() < 1000) {
+                    progressCallback.accept("Downloading Sodium mod...");
+                    String sodiumUrl = "https://cdn.modrinth.com/data/AANobbMI/versions/mc1.21.11-0.8.11-fabric/sodium-fabric-0.8.11+mc1.21.11.jar";
+                    downloadFile(sodiumUrl, sodiumFile);
+                    progressCallback.accept("Sodium mod deployed!");
+                } else {
+                    progressCallback.accept("Sodium mod is up to date.");
+                }
+
             } catch (Exception e) {
                 logger.error("Installation failed", e);
                 throw new RuntimeException(e);

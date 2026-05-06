@@ -38,12 +38,10 @@ public class ComboCounterModule extends HUDModule {
         }
 
         // GOATED Style Colors
-        int backgroundColor = HUDRenderer.getColor(15, 23, 42, 160); // Deep charcoal glass
         int glowColor = HUDRenderer.getColor(251, 191, 36, 120); // Gold glow
 
         // Draw Premium Background
-        renderer.drawGlow(x - 4, y - 4, 90, 20, 8, glowColor);
-        renderer.drawRoundedRect(x - 4, y - 4, 90, 20, 6, backgroundColor);
+        renderer.drawModuleSurface(x - 4, y - 4, 90, 20, glowColor);
 
         // Draw Text
         renderer.drawText("COMBO", x, y + 2, HUDRenderer.getColor(148, 163, 184), 0.7f);

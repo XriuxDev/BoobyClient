@@ -38,7 +38,6 @@ public class FPSCounterModule extends HUDModule {
         }
 
         // GOATED Style Colors
-        int backgroundColor = HUDRenderer.getColor(15, 23, 42, 160); // Deep charcoal glass
         int glowColor = HUDRenderer.getColor(99, 102, 241, 100); // Indigo glow
 
         int textColor;
@@ -51,8 +50,7 @@ public class FPSCounterModule extends HUDModule {
         }
 
         // Draw Premium Background
-        renderer.drawGlow(x - 4, y - 4, 60, 20, 6, glowColor);
-        renderer.drawRoundedRect(x - 4, y - 4, 60, 20, 6, backgroundColor);
+        renderer.drawModuleSurface(x - 4, y - 4, 60, 20, glowColor);
 
         // Draw Text
         renderer.drawText("FPS", x, y + 2, HUDRenderer.getColor(148, 163, 184), 0.7f); // Muted label

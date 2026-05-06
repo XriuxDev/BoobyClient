@@ -13,6 +13,7 @@ public class HUDManager {
     private static final Logger logger = LoggerFactory.getLogger(HUDManager.class);
 
     private final Map<String, HUDModule> modules = new LinkedHashMap<>();
+    private final Map<String, HUDModule> invisibleModules = new LinkedHashMap<>();
     private final HUDRenderer renderer;
     private boolean enabled = true;
 
@@ -33,6 +34,9 @@ public class HUDManager {
             if (profile == null) profile = "Default";
             
             Map<String, Object> profileData = configManager.loadProfile(profile);
+            if (profileData != null && profileData.containsKey("showModuleBackgrounds")) {
+                HUDRenderer.setModuleBackgroundsEnabled((Boolean) profileData.get("showModuleBackgrounds"));
+            }
             if (profileData != null && profileData.containsKey("modules")) {
                 Map<String, Map<String, Object>> modulesData = (Map<String, Map<String, Object>>) profileData.get("modules");
                 for (Map.Entry<String, Map<String, Object>> entry : modulesData.entrySet()) {
@@ -72,6 +76,7 @@ public class HUDManager {
             }
 
             profileData.put("modules", modulesData);
+            profileData.put("showModuleBackgrounds", HUDRenderer.isModuleBackgroundsEnabled());
             configManager.saveProfile(profile, profileData);
             logger.info("Saved HUD config for profile: {}", profile);
         } catch (Exception e) {
@@ -85,17 +90,32 @@ public class HUDManager {
     private void initializeModules() {
         registerModule(new FPSCounterModule());
         registerModule(new PingDisplayModule());
+        registerModule(new CPSCounterModule());
+        registerModule(new CoordinatesHUDModule());
+        registerModule(new ArmorHUDModule());
+        registerModule(new PotionsHUDModule());
         registerModule(new ToggleSprintModule());
         registerModule(new ComboCounterModule());
         registerModule(new ReachDisplayModule());
+        registerInvisibleModule(new ZoomModule());
+        registerInvisibleModule(new FullBrightModule());
     }
 
     /**
-     * Register a HUD module
+     * Register a HUD module that renders on screen
      */
     public void registerModule(HUDModule module) {
         modules.put(module.getModuleId(), module);
         logger.info("Registered HUD module: {}", module.getDisplayName());
+    }
+
+    /**
+     * Register an invisible module (no on-screen box, only in menu)
+     */
+    public void registerInvisibleModule(HUDModule module) {
+        invisibleModules.put(module.getModuleId(), module);
+        modules.put(module.getModuleId(), module); // Also add to modules for menu
+        logger.info("Registered invisible module: {}", module.getDisplayName());
     }
 
     /**
@@ -106,7 +126,7 @@ public class HUDManager {
 
         // Render standard HUD modules directly. We don't render menu here anymore!
         for (HUDModule module : modules.values()) {
-            if (module.isEnabled()) {
+            if (module.isEnabled() && !invisibleModules.containsKey(module.getModuleId())) {
                 try {
                     module.render(renderer);
                 } catch (Exception e) {

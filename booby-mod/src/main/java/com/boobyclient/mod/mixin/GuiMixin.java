@@ -22,7 +22,9 @@ public class GuiMixin {
 
         // Pass context to our custom renderer
         BoobyMod.hudManager.getRenderer().setContext(context);
-        
+
+        // Tick modules every frame so dynamic HUD values stay updated.
+        BoobyMod.hudManager.tick();
         BoobyMod.hudManager.render();
     }
 }

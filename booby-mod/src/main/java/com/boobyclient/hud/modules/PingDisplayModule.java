@@ -12,7 +12,6 @@ public class PingDisplayModule extends HUDModule {
     private static final Logger logger = LoggerFactory.getLogger(PingDisplayModule.class);
 
     private int currentPing = 0;
-    private long lastPingUpdate = System.currentTimeMillis();
 
     public PingDisplayModule() {
         super("ping_display", "Ping Display");
@@ -28,7 +27,6 @@ public class PingDisplayModule extends HUDModule {
         if (!enabled) return;
 
         // GOATED Style Colors
-        int backgroundColor = HUDRenderer.getColor(15, 23, 42, 160); // Deep charcoal glass
         int glowColor = HUDRenderer.getColor(99, 102, 241, 100); // Indigo glow
 
         int textColor;
@@ -41,8 +39,7 @@ public class PingDisplayModule extends HUDModule {
         }
 
         // Draw Premium Background
-        renderer.drawGlow(x - 4, y - 4, 75, 20, 6, glowColor);
-        renderer.drawRoundedRect(x - 4, y - 4, 75, 20, 6, backgroundColor);
+        renderer.drawModuleSurface(x - 4, y - 4, 75, 20, glowColor);
 
         // Draw Text
         renderer.drawText("MS", x, y + 2, HUDRenderer.getColor(148, 163, 184), 0.7f);
@@ -53,25 +50,27 @@ public class PingDisplayModule extends HUDModule {
     public void tick() {
         net.minecraft.client.MinecraftClient client = net.minecraft.client.MinecraftClient.getInstance();
         if (!enabled) return;
+        if (client.player == null || client.getNetworkHandler() == null) {
+            currentPing = 0;
+            return;
+        }
 
         if (client.isInSingleplayer()) {
             currentPing = 0;
             return;
         }
 
-        if (client.getNetworkHandler() != null && client.player != null) {
-            // More thorough check: Iterate through player list if direct fetch fails
-            java.util.Collection<net.minecraft.client.network.PlayerListEntry> entries = client.getNetworkHandler().getPlayerList();
-            for (net.minecraft.client.network.PlayerListEntry entry : entries) {
-                if (entry.getProfile().id().equals(client.player.getUuid())) {
-                    int ping = entry.getLatency();
-                    if (ping > 0) {
-                        currentPing = ping;
-                    }
-                    break;
-                }
+        net.minecraft.client.network.PlayerListEntry ownEntry =
+                client.getNetworkHandler().getPlayerListEntry(client.player.getUuid());
+        if (ownEntry != null) {
+            int ping = ownEntry.getLatency();
+            if (ping >= 0) {
+                currentPing = ping;
+                return;
             }
         }
+
+        currentPing = 0;
     }
 
     public int getCurrentPing() {

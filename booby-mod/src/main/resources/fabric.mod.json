@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "boobyclient",
+  "id": "booby-mod",
   "version": "${version}",
-  "name": "Booby Client",
+  "name": "booby-mod",
   "description": "Booby Client In-Game HUD and Modifications",
   "authors": [
     "BoobyClient Team"

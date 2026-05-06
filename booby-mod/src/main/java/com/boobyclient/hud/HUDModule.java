@@ -14,7 +14,8 @@ public abstract class HUDModule {
     public HUDModule(String moduleId, String displayName) {
         this.moduleId = moduleId;
         this.displayName = displayName;
-        this.enabled = true;
+        // New installs start clean: modules are opt-in by default.
+        this.enabled = false;
         this.x = 10;
         this.y = 10;
         this.scale = 1.0f;
